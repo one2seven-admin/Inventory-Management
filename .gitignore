@@ -1,0 +1,34 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+
+# builds
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# env
+.env
+.env.*
+!.env.example
+
+# generated Prisma clients (one per service — see prisma/schema.prisma output path)
+services/*/src/generated/
+
+# databases (per-service SQLite dev DBs)
+*.db
+*.db-journal
+prisma/dev.db*
+
+# logs
+*.log
+.pnpm-debug.log*
+
+# misc
+.DS_Store
+coverage/
+.vercel
