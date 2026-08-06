@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { approveTransferAction, type ApproveTransferActionState } from "@/actions/transfers/approveTransfer";
+import { Button } from "@/components/ui/Button";
 
 const initialState: ApproveTransferActionState = {};
 
@@ -11,14 +12,10 @@ export function ApproveTransferForm({ transferId }: { transferId: string }) {
   return (
     <form action={formAction} className="inline-flex flex-col items-start gap-1">
       <input type="hidden" name="transferId" value={transferId} />
-      <button
-        type="submit"
-        disabled={isPending}
-        className="rounded bg-emerald-700 px-2 py-1 text-xs font-medium text-white hover:bg-emerald-600 disabled:opacity-50"
-      >
+      <Button type="submit" pending={isPending} className="px-2 py-1 text-xs">
         {isPending ? "Approving…" : "Approve"}
-      </button>
-      {state.error ? <p className="text-xs text-red-600">{state.error}</p> : null}
+      </Button>
+      {state.error ? <p className="text-xs text-rose-600">{state.error}</p> : null}
     </form>
   );
 }

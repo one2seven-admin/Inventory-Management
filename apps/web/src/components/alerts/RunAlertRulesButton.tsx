@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { runAlertRulesAction, type RunAlertRulesActionState } from "@/actions/notifications/runAlertRules";
+import { Button } from "@/components/ui/Button";
 
 const initialState: RunAlertRulesActionState = {};
 
@@ -11,14 +12,10 @@ export function RunAlertRulesButton() {
 
   return (
     <form action={formAction} className="flex items-center gap-2">
-      <button
-        type="submit"
-        disabled={isPending}
-        className="rounded border border-zinc-300 px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-100 disabled:opacity-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-      >
+      <Button type="submit" variant="secondary" pending={isPending}>
         {isPending ? "Running…" : "Run alert check now"}
-      </button>
-      {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
+      </Button>
+      {state.error ? <p className="text-sm text-rose-600">{state.error}</p> : null}
       {state.ranAt ? <p className="text-sm text-emerald-700 dark:text-emerald-400">Alert check ran.</p> : null}
     </form>
   );

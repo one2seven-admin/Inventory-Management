@@ -32,21 +32,21 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
   const canReceive = user?.roles.some((role) => roleHasCapability(role, "RECEIVE_GOODS")) ?? false;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <Link href="/purchase-orders" className="text-sm text-blue-700 hover:underline dark:text-blue-400">
+        <Link href="/purchase-orders" className="text-sm text-brand transition-colors hover:underline">
           ← Purchase orders
         </Link>
         <div className="mt-2 flex items-center gap-3">
-          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">{po.poNumber}</h1>
+          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">{po.poNumber}</h1>
           <PoStatusBadge status={po.status} />
         </div>
-        <p className="text-sm text-zinc-500">Supplier: {supplier?.name ?? po.supplierId}</p>
+        <p className="text-sm text-stone-500">Supplier: {supplier?.name ?? po.supplierId}</p>
       </div>
 
-      <div className="overflow-x-auto rounded border border-zinc-200 dark:border-zinc-800">
+      <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
         <table className="w-full text-sm">
-          <thead className="bg-zinc-50 text-left text-xs uppercase text-zinc-500 dark:bg-zinc-900">
+          <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
             <tr>
               <th className="px-3 py-2">Item</th>
               <th className="px-3 py-2">Ordered</th>
@@ -57,7 +57,10 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
           </thead>
           <tbody>
             {po.lines.map((line) => (
-              <tr key={line.id} className="border-t border-zinc-100 dark:border-zinc-800">
+              <tr
+                key={line.id}
+                className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
+              >
                 <td className="px-3 py-2">{itemsById.get(line.itemId)?.name ?? line.itemId}</td>
                 <td className="px-3 py-2">{line.quantityOrdered}</td>
                 <td className="px-3 py-2">{line.quantityReceived}</td>
@@ -68,7 +71,7 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
           </tbody>
         </table>
       </div>
-      <p className="text-right text-sm font-medium text-zinc-900 dark:text-zinc-50">
+      <p className="text-right text-sm font-medium text-stone-900 dark:text-stone-50">
         Total: ${po.totalAmount.toFixed(2)}
       </p>
 
@@ -77,7 +80,7 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
       {canReceive && RECEIVABLE_STATUSES.includes(po.status) ? (
         <Link
           href={`/purchase-orders/${po.id}/receive`}
-          className="inline-block w-fit rounded bg-zinc-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
+          className="inline-block w-fit rounded bg-brand px-4 py-1.5 text-sm font-medium text-brand-foreground transition-colors duration-150 hover:bg-brand-hover active:scale-[0.98]"
         >
           Receive goods
         </Link>

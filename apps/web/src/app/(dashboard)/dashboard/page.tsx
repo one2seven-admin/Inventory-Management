@@ -18,11 +18,11 @@ export default async function DashboardPage({
   const summary = await client.get<DashboardSummary>("/reporting/dashboard", locationId ? { locationId } : undefined);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Dashboard</h1>
-          <p className="text-sm text-zinc-500">Operational overview — PRD §3.15</p>
+          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">Dashboard</h1>
+          <p className="text-sm text-stone-500">Operational overview — PRD §3.15</p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>
@@ -30,7 +30,7 @@ export default async function DashboardPage({
       <StatTiles summary={summary} />
 
       <div>
-        <p className="mb-2 text-sm font-medium text-zinc-900 dark:text-zinc-50">Top wastage items</p>
+        <p className="mb-2 text-sm font-medium text-stone-900 dark:text-stone-50">Top wastage items</p>
         <TopWastageList items={summary.topWastageItems} />
       </div>
     </div>

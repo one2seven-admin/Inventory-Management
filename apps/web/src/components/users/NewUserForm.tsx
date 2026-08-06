@@ -3,23 +3,24 @@
 import { useActionState } from "react";
 import { ROLES } from "@platform/contracts";
 import { createUserAction, type CreateUserActionState } from "@/actions/users/createUser";
+import { Card } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
+import { Button } from "@/components/ui/Button";
 
 const initialState: CreateUserActionState = {};
-
-const inputClass =
-  "rounded border border-zinc-300 bg-white px-2 py-1.5 text-sm text-zinc-900 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
 
 export function NewUserForm() {
   const [state, formAction, isPending] = useActionState(createUserAction, initialState);
 
   return (
-    <form action={formAction} className="rounded border border-zinc-200 p-4 dark:border-zinc-800">
-      <p className="mb-3 text-sm font-medium text-zinc-900 dark:text-zinc-50">New user</p>
+    <Card as="form" action={formAction}>
+      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New user</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        <input name="name" placeholder="Full name" required className={inputClass} />
-        <input name="email" type="email" placeholder="Email" required className={inputClass} />
-        <input name="password" type="password" placeholder="Temporary password" required minLength={8} className={inputClass} />
-        <select name="role" required defaultValue="" className={inputClass}>
+        <Input name="name" placeholder="Full name" required />
+        <Input name="email" type="email" placeholder="Email" required />
+        <Input name="password" type="password" placeholder="Temporary password" required minLength={8} />
+        <Select name="role" required defaultValue="">
           <option value="" disabled>
             Role
           </option>
@@ -28,16 +29,12 @@ export function NewUserForm() {
               {role}
             </option>
           ))}
-        </select>
+        </Select>
       </div>
-      {state.error ? <p className="mt-2 text-sm text-red-600">{state.error}</p> : null}
-      <button
-        type="submit"
-        disabled={isPending}
-        className="mt-3 rounded bg-zinc-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
-      >
+      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Creating…" : "Create user"}
-      </button>
-    </form>
+      </Button>
+    </Card>
   );
 }

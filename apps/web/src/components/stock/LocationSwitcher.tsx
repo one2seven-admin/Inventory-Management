@@ -1,26 +1,26 @@
 "use client";
 
 import type { Location } from "@platform/contracts";
+import { Select } from "@/components/ui/Select";
 
 export function LocationSwitcher({ locations, selectedLocationId }: { locations: Location[]; selectedLocationId: string }) {
   return (
     <form method="get" className="flex items-center gap-2">
-      <label htmlFor="locationId" className="text-sm text-zinc-500">
+      <label htmlFor="locationId" className="text-sm text-stone-500">
         Location
       </label>
-      <select
+      <Select
         id="locationId"
         name="locationId"
         defaultValue={selectedLocationId}
         onChange={(event) => event.currentTarget.form?.requestSubmit()}
-        className="rounded border border-zinc-300 bg-white px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900"
       >
         {locations.map((location) => (
           <option key={location.id} value={location.id}>
             {location.name}
           </option>
         ))}
-      </select>
+      </Select>
       <noscript>
         <button type="submit" className="rounded border px-2 py-1.5 text-sm">
           Go
