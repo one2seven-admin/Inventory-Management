@@ -1,0 +1,61 @@
+// Identity service's own database. Owned exclusively by this service —
+// no other service reads or writes here directly.
+generator client {
+  provider = "prisma-client-js"
+  // Each service generates its client into its own folder instead of the
+  // hoisted npm-workspace node_modules/@prisma/client — with several
+  // services sharing one workspace root, generating to the default shared
+  // location would let the last "prisma generate" silently overwrite every
+  // other service's client with its own schema.
+  output = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  roles         UserRole[]
+  locations     UserLocation[]
+  refreshTokens RefreshToken[]
+}
+
+model UserRole {
+  id     String @id @default(cuid())
+  userId String
+  role   String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, role])
+}
+
+model UserLocation {
+  id         String @id @default(cuid())
+  userId     String
+  locationId String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, locationId])
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  revokedAt DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
