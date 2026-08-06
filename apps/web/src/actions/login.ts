@@ -25,5 +25,5 @@ export async function loginAction(_prevState: LoginActionState, formData: FormDa
   }
 
   await setSessionCookies(result.accessToken, result.refreshToken);
-  redirect("/items");
+  redirect("/dashboard");
 }

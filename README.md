@@ -39,17 +39,21 @@ npm install
 # Shared packages must be compiled before anything imports them
 npm run build:shared
 
-# For each service in services/*  (repeat per service, substituting the name):
-cp services/<name>/.env.example services/<name>/.env
-# edit DATABASE_URL — same Postgres connection string across every service,
-# only the &schema=<name> query param differs
-npm run db:generate -w services/<name>
-npm run db:push -w services/<name>
+# For each service EXCEPT reporting-service (which has no database of its
+# own — it's a stateless aggregator, see the architecture table above):
+for name in identity-service inventory-service purchasing-service recipes-service notifications-service; do
+  cp services/$name/.env.example services/$name/.env
+  # edit DATABASE_URL — same Postgres connection string across every service,
+  # only the &schema=<name> query param differs
+done
+npm run db:generate    # runs --workspaces --if-present, skips reporting-service automatically
+npm run db:push        # creates each service's schema in your Postgres database
 
 # identity-service and inventory-service ship a seed script:
 npm run db:seed -w services/identity-service    # owner@restaurant.test / Owner123!
 npm run db:seed -w services/inventory-service    # a starter location + a few sample items
 
+cp services/reporting-service/.env.example services/reporting-service/.env
 cp apps/gateway/.env.example apps/gateway/.env    # JWT_ACCESS_SECRET must match identity-service's
 cp apps/web/.env.example apps/web/.env
 ```
@@ -63,11 +67,15 @@ npm run dev:core      # just web + gateway + identity + inventory, for faster it
 
 Then open http://localhost:3000 and sign in with the seeded owner account.
 
+## Web app pages
+
+`Dashboard · Items · Stock (receive/issue/adjust/count/wastage) · Suppliers · Purchase Orders (create/approve/receive via GRN) · Reorder Suggestions (one-tap → PO) · Recipes (BOM/costing/manual issue) · Wastage · Transfers (request/approve/dispatch/receive) · Alerts · Reports (food cost/spend/valuation) · Users` — nav items are shown/hidden per the signed-in user's role capabilities (`packages/contracts/src/common/roles.ts`).
+
 ## Verification
 
-- `npm run typecheck` — type-checks every package/service/app in the workspace.
+- `npm run typecheck` — type-checks every package/service/app in the workspace; currently clean.
 - Each service has a `/health` endpoint and a README documenting its routes; curl them directly on their own port before assuming a gateway-routing issue.
-- No end-to-end browser test runner is wired up yet; the vertical slice (login → RBAC-aware nav → live data) has been manually verified via curl with real session cookies against a real Postgres database.
+- No end-to-end browser test runner is wired up yet (no headless browser in the environment this was built in). Every page and API flow has instead been manually verified via curl with real session cookies/JWTs against a real Postgres database — login, RBAC enforcement (including that the gateway overwrites any client-supplied `x-user-*` headers, so a caller cannot spoof a role), and the full receive → deduct-via-recipe → wastage → transfer → count-reconcile → reorder → PO → GRN loop.
 
 ## PRD coverage
 

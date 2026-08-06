@@ -1,9 +1,13 @@
 import type { Item, Location, StockLevel } from "@platform/contracts";
+import { roleHasCapability } from "@platform/contracts";
 import { getAuthedGatewayClient } from "@/lib/api/getAuthedGatewayClient";
+import { getCurrentUser } from "@/lib/session/getCurrentUser";
 import { LocationSwitcher } from "@/components/stock/LocationSwitcher";
 import { StockLevelsTable } from "@/components/stock/StockLevelsTable";
 import { ReceiveStockForm } from "@/components/stock/ReceiveStockForm";
 import { LogWastageForm } from "@/components/stock/LogWastageForm";
+import { AdjustStockForm } from "@/components/stock/AdjustStockForm";
+import { StockCountForm } from "@/components/stock/StockCountForm";
 
 export default async function StockPage({
   searchParams,
@@ -11,7 +15,7 @@ export default async function StockPage({
   searchParams: Promise<{ locationId?: string }>;
 }) {
   const { locationId: requestedLocationId } = await searchParams;
-  const client = await getAuthedGatewayClient();
+  const [client, user] = await Promise.all([getAuthedGatewayClient(), getCurrentUser()]);
 
   const [locations, items] = await Promise.all([
     client.get<Location[]>("/inventory/locations"),
@@ -20,6 +24,9 @@ export default async function StockPage({
 
   const locationId = requestedLocationId ?? locations[0]?.id;
   const levels = locationId ? await client.get<StockLevel[]>("/inventory/stock/levels", { locationId }) : [];
+
+  const canAdjust = user?.roles.some((role) => roleHasCapability(role, "APPROVE_STOCK_ADJUSTMENT")) ?? false;
+  const canCount = user?.roles.some((role) => roleHasCapability(role, "PERFORM_STOCK_COUNT")) ?? false;
 
   return (
     <div className="flex flex-col gap-6">
@@ -37,6 +44,8 @@ export default async function StockPage({
           <div className="grid gap-4 md:grid-cols-2">
             <ReceiveStockForm items={items} locationId={locationId} />
             <LogWastageForm items={items} locationId={locationId} />
+            {canAdjust ? <AdjustStockForm items={items} locationId={locationId} /> : null}
+            {canCount ? <StockCountForm items={items} locationId={locationId} /> : null}
           </div>
         </>
       ) : (

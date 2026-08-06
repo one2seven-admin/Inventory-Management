@@ -10,9 +10,22 @@ interface NavItem {
 
 function getNavItems(user: User): NavItem[] {
   const items: NavItem[] = [
+    { href: "/dashboard", label: "Dashboard" },
     { href: "/items", label: "Items" },
     { href: "/stock", label: "Stock" },
+    { href: "/suppliers", label: "Suppliers" },
+    { href: "/purchase-orders", label: "Purchase orders" },
   ];
+  if (user.roles.some((role) => roleHasCapability(role, "CREATE_PURCHASE_ORDER"))) {
+    items.push({ href: "/reorder-suggestions", label: "Reorder suggestions" });
+  }
+  items.push(
+    { href: "/recipes", label: "Recipes" },
+    { href: "/wastage", label: "Wastage" },
+    { href: "/transfers", label: "Transfers" },
+    { href: "/alerts", label: "Alerts" },
+    { href: "/reports", label: "Reports" }
+  );
   if (user.roles.some((role) => roleHasCapability(role, "MANAGE_USERS"))) {
     items.push({ href: "/users", label: "Users" });
   }
