@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# web
 
-## Getting Started
+Next.js 16 (App Router) frontend/BFF — PRD §2.4 Web Application.
 
-First, run the development server:
+Server Components fetch data directly from the gateway on every request (no caching layer yet); mutations go through Server Actions, which also call the gateway. The session is a short-lived JWT (from identity-service) stored in an httpOnly cookie — never exposed to the browser. `src/proxy.ts` (Next 16's replacement for `middleware.ts`) redirects any request without a session cookie to `/login`; RBAC-specific page access (e.g. `/users`) is enforced again inside the page itself via `roleHasCapability`.
+
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env   # GATEWAY_URL
+npm run build:shared   # compiles packages/contracts + packages/http-client — required before first run,
+                        # and again any time either package's source changes (see note below)
+npm run dev -w apps/web   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Needs the gateway (and whichever services it proxies to) running to actually load data — see the root README.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Why packages/contracts and packages/http-client are pre-built
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+They're consumed as compiled packages (`package.json` `main`/`types` point at `dist/`, not `src/`) rather than raw TypeScript, because Next.js's Turbopack cannot resolve the NodeNext-style `.js`-mapped-to-`.ts` relative imports used inside those packages (a real, reproducible bundling failure — `transpilePackages` alone does not fix it). If you change anything in either package, rerun `npm run build:shared` from the repo root before the web app will see it. The root `predev`/`predev:core` scripts do this automatically for `npm run dev`.
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/proxy.ts` — session-cookie gate (Next's `proxy` file convention, née `middleware.ts`)
+- `src/lib/session/` — cookie read/write helpers + `getCurrentUser()` (calls `GET /identity/auth/me` through the gateway, deduped per request via React `cache()`)
+- `src/lib/api/` — typed gateway HTTP client
+- `src/actions/` — Server Actions, one file per mutation, grouped by feature
+- `src/app/(dashboard)/` — authenticated route group (login-gated layout renders `AppShell` with role-aware nav)
+- `src/components/` — one component per file, grouped by feature to match `src/actions/`

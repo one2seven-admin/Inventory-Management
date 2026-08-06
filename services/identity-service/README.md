@@ -1,6 +1,6 @@
 # identity-service
 
-Users, roles (RBAC per PRD §3.16/§6), and JWT authentication. Owns its own SQLite database — no other service reads it directly.
+Users, roles (RBAC per PRD §3.16/§6), and JWT authentication. Owns its own Postgres schema (`identity`) — no other service reads it directly.
 
 ## Run
 
@@ -20,6 +20,6 @@ npm run dev -w services/identity-service        # http://localhost:4001
 - `GET /auth/me` — requires `x-user-id`/`x-user-roles` headers (normally injected by the gateway)
 - `GET/POST /users`, `PATCH /users/:id/roles`, `POST /users/:id/deactivate` — require the `MANAGE_USERS` capability (Owner role)
 
-## Production note
+## Database
 
-Swap SQLite for Postgres by changing `provider = "sqlite"` to `"postgresql"` in `prisma/schema.prisma` and pointing `DATABASE_URL` at a real Postgres instance — no application code changes needed.
+All services share one Postgres database, each isolated in its own schema namespace via `?schema=<service>` on `DATABASE_URL` (this service uses `identity`). No cross-service DB access — only HTTP.
