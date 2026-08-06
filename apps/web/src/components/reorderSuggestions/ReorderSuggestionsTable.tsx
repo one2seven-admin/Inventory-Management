@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import type { Item, ReorderSuggestion, Supplier } from "@platform/contracts";
 import { convertToPoAction, type ConvertToPoActionState } from "@/actions/reorderSuggestions/convertToPo";
+import { Button } from "@/components/ui/Button";
 
 const initialState: ConvertToPoActionState = {};
 
@@ -24,15 +25,15 @@ export function ReorderSuggestionsTable({
   const suppliersById = new Map(suppliers.map((supplier) => [supplier.id, supplier]));
 
   if (suggestions.length === 0) {
-    return <p className="text-sm text-zinc-500">No reorder suggestions right now — stock is above PAR.</p>;
+    return <p className="text-sm text-stone-500">No reorder suggestions right now — stock is above PAR.</p>;
   }
 
   return (
     <form action={formAction} className="flex flex-col gap-3">
       <input type="hidden" name="locationId" value={locationId} />
-      <div className="overflow-x-auto rounded border border-zinc-200 dark:border-zinc-800">
+      <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
         <table className="w-full text-sm">
-          <thead className="bg-zinc-50 text-left text-xs uppercase text-zinc-500 dark:bg-zinc-900">
+          <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
             <tr>
               {canConvert ? <th className="px-3 py-2"></th> : null}
               <th className="px-3 py-2">Item</th>
@@ -45,7 +46,10 @@ export function ReorderSuggestionsTable({
           </thead>
           <tbody>
             {suggestions.map((suggestion) => (
-              <tr key={suggestion.itemId} className="border-t border-zinc-100 dark:border-zinc-800">
+              <tr
+                key={suggestion.itemId}
+                className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
+              >
                 {canConvert ? (
                   <td className="px-3 py-2">
                     <input type="checkbox" name="itemIds" value={suggestion.itemId} defaultChecked />
@@ -69,19 +73,15 @@ export function ReorderSuggestionsTable({
 
       {canConvert ? (
         <div>
-          {state.error ? <p className="mb-2 text-sm text-red-600">{state.error}</p> : null}
+          {state.error ? <p className="mb-2 text-sm text-rose-600">{state.error}</p> : null}
           {state.createdCount != null ? (
             <p className="mb-2 text-sm text-emerald-700 dark:text-emerald-400">
               Created {state.createdCount} purchase order{state.createdCount === 1 ? "" : "s"}.
             </p>
           ) : null}
-          <button
-            type="submit"
-            disabled={isPending}
-            className="rounded bg-zinc-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
-          >
+          <Button type="submit" pending={isPending}>
             {isPending ? "Converting…" : "Convert selected to PO"}
-          </button>
+          </Button>
         </div>
       ) : null}
     </form>

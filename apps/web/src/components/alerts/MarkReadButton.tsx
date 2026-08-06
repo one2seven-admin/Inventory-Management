@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { markReadAction, type MarkReadActionState } from "@/actions/notifications/markRead";
+import { Button } from "@/components/ui/Button";
 
 const initialState: MarkReadActionState = {};
 
@@ -11,13 +12,9 @@ export function MarkReadButton({ notificationId }: { notificationId: string }) {
   return (
     <form action={formAction}>
       <input type="hidden" name="notificationId" value={notificationId} />
-      <button
-        type="submit"
-        disabled={isPending}
-        className="rounded border border-zinc-300 px-2 py-1 text-xs text-zinc-700 hover:bg-zinc-100 disabled:opacity-50 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-      >
+      <Button type="submit" variant="secondary" pending={isPending} className="px-2 py-1 text-xs">
         {isPending ? "…" : "Mark read"}
-      </button>
+      </Button>
     </form>
   );
 }

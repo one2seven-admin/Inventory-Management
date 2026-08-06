@@ -27,11 +27,11 @@ export default async function ReorderSuggestionsPage({
   const canConvert = user?.roles.some((role) => roleHasCapability(role, "CREATE_PURCHASE_ORDER")) ?? false;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Reorder suggestions</h1>
-          <p className="text-sm text-zinc-500">Automated PAR-based replenishment — PRD §3.13</p>
+          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">Reorder suggestions</h1>
+          <p className="text-sm text-stone-500">Automated PAR-based replenishment — PRD §3.13</p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>
@@ -45,7 +45,7 @@ export default async function ReorderSuggestionsPage({
           canConvert={canConvert}
         />
       ) : (
-        <p className="text-sm text-zinc-500">No locations yet.</p>
+        <p className="text-sm text-stone-500">No locations yet.</p>
       )}
     </div>
   );

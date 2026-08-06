@@ -2,11 +2,10 @@
 
 import { useActionState } from "react";
 import { loginAction, type LoginActionState } from "@/actions/login";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
 
 const initialState: LoginActionState = {};
-
-const inputClass =
-  "w-full rounded border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 outline-none focus:border-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
 
 export function LoginForm() {
   const [state, formAction, isPending] = useActionState(loginAction, initialState);
@@ -14,32 +13,28 @@ export function LoginForm() {
   return (
     <form action={formAction} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <label htmlFor="email" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        <label htmlFor="email" className="text-sm font-medium text-stone-700 dark:text-stone-300">
           Email
         </label>
-        <input id="email" name="email" type="email" autoComplete="email" required className={inputClass} />
+        <Input id="email" name="email" type="email" autoComplete="email" required className="w-full py-2" />
       </div>
       <div className="flex flex-col gap-1">
-        <label htmlFor="password" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
+        <label htmlFor="password" className="text-sm font-medium text-stone-700 dark:text-stone-300">
           Password
         </label>
-        <input
+        <Input
           id="password"
           name="password"
           type="password"
           autoComplete="current-password"
           required
-          className={inputClass}
+          className="w-full py-2"
         />
       </div>
-      {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
-      <button
-        type="submit"
-        disabled={isPending}
-        className="rounded bg-zinc-900 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-700 disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300"
-      >
+      {state.error ? <p className="text-sm text-rose-600">{state.error}</p> : null}
+      <Button type="submit" pending={isPending} className="w-full py-2">
         {isPending ? "Signing in…" : "Sign in"}
-      </button>
+      </Button>
     </form>
   );
 }

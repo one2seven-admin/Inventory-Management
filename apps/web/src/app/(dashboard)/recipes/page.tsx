@@ -28,10 +28,10 @@ export default async function RecipesPage() {
   const canManage = user?.roles.some((role) => roleHasCapability(role, "MANAGE_RECIPES")) ?? false;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Recipes</h1>
-        <p className="text-sm text-zinc-500">Recipe &amp; sub-recipe BOM, costed against current stock — PRD §3.6</p>
+        <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">Recipes</h1>
+        <p className="text-sm text-stone-500">Recipe &amp; sub-recipe BOM, costed against current stock — PRD §3.6</p>
       </div>
       {canManage ? <NewRecipeForm items={items} subRecipes={subRecipes} /> : null}
       <RecipesTable recipes={recipes} costsById={costsById} />

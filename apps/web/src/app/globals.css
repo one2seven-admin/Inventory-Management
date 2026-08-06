@@ -2,20 +2,33 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1c1917;
+
+  /* Brand accent — warm amber, evokes kitchen/restaurant warmth without being loud.
+     Text on brand uses a fixed dark tone (--color-brand-foreground) rather than white:
+     amber-600/amber-500 backgrounds contrast far better with near-black text than white. */
+  --brand: #d97706; /* amber-600 */
+  --brand-hover: #b45309; /* amber-700 */
+  --brand-foreground: #1c1917; /* stone-900 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-foreground: var(--brand-foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0c0a09;
+    --foreground: #f5f5f4;
+
+    --brand: #f59e0b; /* amber-500 */
+    --brand-hover: #fbbf24; /* amber-400 */
   }
 }
 
@@ -23,4 +36,34 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Entrance animation — applied once per page's top-level content wrapper. */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 300ms ease-out both;
+}
+
+/* Respect reduced-motion preference for all animation/transitions, including
+   Tailwind's built-in animate-spin / animate-pulse used by the Button spinner
+   and urgent status badges. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

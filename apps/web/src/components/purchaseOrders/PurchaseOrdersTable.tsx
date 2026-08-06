@@ -12,13 +12,13 @@ export function PurchaseOrdersTable({
   const suppliersById = new Map(suppliers.map((supplier) => [supplier.id, supplier]));
 
   if (purchaseOrders.length === 0) {
-    return <p className="text-sm text-zinc-500">No purchase orders match these filters.</p>;
+    return <p className="text-sm text-stone-500">No purchase orders match these filters.</p>;
   }
 
   return (
-    <div className="overflow-x-auto rounded border border-zinc-200 dark:border-zinc-800">
+    <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
       <table className="w-full text-sm">
-        <thead className="bg-zinc-50 text-left text-xs uppercase text-zinc-500 dark:bg-zinc-900">
+        <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
           <tr>
             <th className="px-3 py-2">PO #</th>
             <th className="px-3 py-2">Supplier</th>
@@ -30,9 +30,12 @@ export function PurchaseOrdersTable({
         </thead>
         <tbody>
           {purchaseOrders.map((po) => (
-            <tr key={po.id} className="border-t border-zinc-100 dark:border-zinc-800">
+            <tr
+              key={po.id}
+              className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
+            >
               <td className="px-3 py-2">
-                <Link href={`/purchase-orders/${po.id}`} className="font-medium text-blue-700 hover:underline dark:text-blue-400">
+                <Link href={`/purchase-orders/${po.id}`} className="font-medium text-brand transition-colors hover:underline">
                   {po.poNumber}
                 </Link>
               </td>
@@ -42,7 +45,7 @@ export function PurchaseOrdersTable({
               <td className="px-3 py-2">
                 <PoStatusBadge status={po.status} />
               </td>
-              <td className="px-3 py-2 text-xs text-zinc-400">{new Date(po.createdAt).toLocaleDateString()}</td>
+              <td className="px-3 py-2 text-xs text-stone-400">{new Date(po.createdAt).toLocaleDateString()}</td>
             </tr>
           ))}
         </tbody>
