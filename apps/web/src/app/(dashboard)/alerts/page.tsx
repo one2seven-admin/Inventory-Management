@@ -25,16 +25,16 @@ export default async function AlertsPage({
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">Alerts</h1>
-          <p className="text-sm text-stone-500">Notification center — PRD §3.18</p>
+          <h1 className="font-headline text-2xl font-bold text-on-surface">Alerts</h1>
+          <p className="text-sm text-on-surface-variant">Notification center</p>
         </div>
         <div className="flex items-center gap-2">
           <Link
             href="/alerts"
             className={`rounded border px-3 py-1.5 text-sm transition-colors duration-150 ${
               unreadOnly !== "true"
-                ? "border-brand text-brand"
-                : "border-stone-300 text-stone-500 hover:bg-stone-100 dark:border-stone-700 dark:hover:bg-stone-800"
+                ? "border-primary text-primary"
+                : "border-outline text-on-surface-variant hover:bg-surface-container-high"
             }`}
           >
             All
@@ -43,8 +43,8 @@ export default async function AlertsPage({
             href="/alerts?unreadOnly=true"
             className={`rounded border px-3 py-1.5 text-sm transition-colors duration-150 ${
               unreadOnly === "true"
-                ? "border-brand text-brand"
-                : "border-stone-300 text-stone-500 hover:bg-stone-100 dark:border-stone-700 dark:hover:bg-stone-800"
+                ? "border-primary text-primary"
+                : "border-outline text-on-surface-variant hover:bg-surface-container-high"
             }`}
           >
             Unread

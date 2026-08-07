@@ -26,7 +26,7 @@ export function ReceiveTransferForm({ transferId, defaultQuantity }: { transferI
           {isPending ? "Receiving…" : "Receive"}
         </Button>
       </div>
-      {state.error ? <p className="text-xs text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="text-xs text-danger">{state.error}</p> : null}
     </form>
   );
 }

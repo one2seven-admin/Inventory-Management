@@ -14,7 +14,7 @@ export function MarkAllReadButton() {
       <Button type="submit" pending={isPending}>
         {isPending ? "Marking…" : "Mark all read"}
       </Button>
-      {state.error ? <p className="text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="text-sm text-danger">{state.error}</p> : null}
     </form>
   );
 }

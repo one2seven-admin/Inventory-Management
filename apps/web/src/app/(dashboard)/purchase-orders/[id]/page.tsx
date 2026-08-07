@@ -6,6 +6,7 @@ import { getAuthedGatewayClient } from "@/lib/api/getAuthedGatewayClient";
 import { getCurrentUser } from "@/lib/session/getCurrentUser";
 import { PoStatusBadge } from "@/components/purchaseOrders/PoStatusBadge";
 import { ApproveRejectForm } from "@/components/purchaseOrders/ApproveRejectForm";
+import { Table, Thead, Th, Tr, Td } from "@/components/ui/Table";
 
 const RECEIVABLE_STATUSES = ["SENT", "CONFIRMED", "PARTIALLY_RECEIVED"];
 const APPROVABLE_STATUSES = ["DRAFT", "PENDING_APPROVAL"];
@@ -34,45 +35,40 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
   return (
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <Link href="/purchase-orders" className="text-sm text-brand transition-colors hover:underline">
+        <Link href="/purchase-orders" className="text-sm text-primary transition-colors hover:underline">
           ← Purchase orders
         </Link>
         <div className="mt-2 flex items-center gap-3">
-          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">{po.poNumber}</h1>
+          <h1 className="font-headline text-2xl font-bold text-on-surface">{po.poNumber}</h1>
           <PoStatusBadge status={po.status} />
         </div>
-        <p className="text-sm text-stone-500">Supplier: {supplier?.name ?? po.supplierId}</p>
+        <p className="text-sm text-on-surface-variant">Supplier: {supplier?.name ?? po.supplierId}</p>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
-        <table className="w-full text-sm">
-          <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
-            <tr>
-              <th className="px-3 py-2">Item</th>
-              <th className="px-3 py-2">Ordered</th>
-              <th className="px-3 py-2">Received</th>
-              <th className="px-3 py-2">Unit price</th>
-              <th className="px-3 py-2">Line total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {po.lines.map((line) => (
-              <tr
-                key={line.id}
-                className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
-              >
-                <td className="px-3 py-2">{itemsById.get(line.itemId)?.name ?? line.itemId}</td>
-                <td className="px-3 py-2">{line.quantityOrdered}</td>
-                <td className="px-3 py-2">{line.quantityReceived}</td>
-                <td className="px-3 py-2">${line.unitPrice.toFixed(2)}</td>
-                <td className="px-3 py-2">${(line.quantityOrdered * line.unitPrice).toFixed(2)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="text-right text-sm font-medium text-stone-900 dark:text-stone-50">
-        Total: ${po.totalAmount.toFixed(2)}
+      <Table>
+        <Thead>
+          <tr>
+            <Th>Item</Th>
+            <Th>Ordered</Th>
+            <Th>Received</Th>
+            <Th>Unit price</Th>
+            <Th>Line total</Th>
+          </tr>
+        </Thead>
+        <tbody>
+          {po.lines.map((line) => (
+            <Tr key={line.id}>
+              <Td>{itemsById.get(line.itemId)?.name ?? line.itemId}</Td>
+              <Td className="font-data-mono">{line.quantityOrdered}</Td>
+              <Td className="font-data-mono">{line.quantityReceived}</Td>
+              <Td className="font-data-mono">${line.unitPrice.toFixed(2)}</Td>
+              <Td className="font-data-mono">${(line.quantityOrdered * line.unitPrice).toFixed(2)}</Td>
+            </Tr>
+          ))}
+        </tbody>
+      </Table>
+      <p className="text-right text-sm font-medium text-on-surface">
+        Total: <span className="font-data-mono">${po.totalAmount.toFixed(2)}</span>
       </p>
 
       {canApprove && APPROVABLE_STATUSES.includes(po.status) ? <ApproveRejectForm poId={po.id} /> : null}
@@ -80,7 +76,7 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
       {canReceive && RECEIVABLE_STATUSES.includes(po.status) ? (
         <Link
           href={`/purchase-orders/${po.id}/receive`}
-          className="inline-block w-fit rounded bg-brand px-4 py-1.5 text-sm font-medium text-brand-foreground transition-colors duration-150 hover:bg-brand-hover active:scale-[0.98]"
+          className="inline-flex w-fit items-center justify-center rounded bg-primary-container px-4 py-1.5 font-data-mono text-xs font-bold uppercase tracking-wide text-on-primary-container transition-colors duration-150 hover:brightness-110 active:scale-[0.98]"
         >
           Receive goods
         </Link>

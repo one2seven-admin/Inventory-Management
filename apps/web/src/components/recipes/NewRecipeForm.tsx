@@ -18,7 +18,7 @@ export function NewRecipeForm({ items, subRecipes }: { items: Item[]; subRecipes
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New recipe</p>
+      <p className="mb-3 label-caps text-on-surface">New recipe</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Input name="name" placeholder="Name" required />
         <Select name="type" required defaultValue="">
@@ -33,7 +33,7 @@ export function NewRecipeForm({ items, subRecipes }: { items: Item[]; subRecipes
         <Input name="sellingPrice" type="number" step="any" min={0} placeholder="Selling price (optional)" />
       </div>
 
-      <p className="mt-4 mb-2 text-xs uppercase text-stone-500">Ingredients</p>
+      <p className="mt-4 mb-2 label-caps text-on-surface-variant">Ingredients</p>
       <div className="flex flex-col gap-2">
         {Array.from({ length: INGREDIENT_ROWS }).map((_, index) => (
           <div key={index} className="grid grid-cols-3 gap-2">
@@ -60,7 +60,7 @@ export function NewRecipeForm({ items, subRecipes }: { items: Item[]; subRecipes
         ))}
       </div>
 
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Creating…" : "Create recipe"}
       </Button>

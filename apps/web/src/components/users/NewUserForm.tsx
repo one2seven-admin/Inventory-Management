@@ -15,7 +15,7 @@ export function NewUserForm() {
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New user</p>
+      <p className="mb-3 label-caps text-on-surface">New user</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Input name="name" placeholder="Full name" required />
         <Input name="email" type="email" placeholder="Email" required />
@@ -31,7 +31,7 @@ export function NewUserForm() {
           ))}
         </Select>
       </div>
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Creating…" : "Create user"}
       </Button>

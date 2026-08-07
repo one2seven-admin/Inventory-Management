@@ -25,11 +25,11 @@ export default async function RecipeDetailPage({ params }: { params: Promise<{ i
   return (
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <Link href="/recipes" className="text-sm text-brand transition-colors hover:underline">
+        <Link href="/recipes" className="text-sm text-primary transition-colors hover:underline">
           ← Recipes
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-stone-900 dark:text-stone-50">{recipe.name}</h1>
-        <p className="text-sm text-stone-500">
+        <h1 className="mt-2 font-headline text-2xl font-bold text-on-surface">{recipe.name}</h1>
+        <p className="text-sm text-on-surface-variant">
           {recipe.type.replaceAll("_", " ")} · Yield {recipe.yieldQuantity} {recipe.yieldUnit} · v{recipe.version}
         </p>
       </div>

@@ -9,7 +9,7 @@ apps/
   web/                    Next.js 16 (App Router) — frontend/BFF                     :3000
   gateway/                Verifies JWTs, proxies /api/v1/<service>/* downstream       :4000
 services/
-  identity-service/       users, roles (RBAC), JWT auth                              :4001
+  identity-service/       users, roles (RBAC), JWT auth                              :8001
   inventory-service/      items, locations, stock ledger, transfers, batches, wastage :4002
   purchasing-service/     suppliers, purchase orders, GRN, reorder suggestions        :4003
   recipes-service/        recipe/BOM costing, POS sale-event & manual stock deduction :4004

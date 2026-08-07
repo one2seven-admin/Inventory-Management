@@ -15,8 +15,8 @@ export function RunAlertRulesButton() {
       <Button type="submit" variant="secondary" pending={isPending}>
         {isPending ? "Running…" : "Run alert check now"}
       </Button>
-      {state.error ? <p className="text-sm text-rose-600">{state.error}</p> : null}
-      {state.ranAt ? <p className="text-sm text-emerald-700 dark:text-emerald-400">Alert check ran.</p> : null}
+      {state.error ? <p className="text-sm text-danger">{state.error}</p> : null}
+      {state.ranAt ? <p className="text-sm text-success">Alert check ran.</p> : null}
     </form>
   );
 }

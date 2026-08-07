@@ -2,17 +2,21 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import type { ReactNode } from "react";
 
 export interface NavItem {
   href: string;
   label: string;
+  /** Pre-rendered by the caller (server component) — RSC can pass elements across
+   *  the client boundary, but not raw component references. */
+  icon: ReactNode;
 }
 
 export function NavLinks({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-row gap-1 md:flex-col">
+    <nav className="flex flex-row gap-1 overflow-x-auto md:flex-col md:overflow-visible">
       {items.map((item) => {
         const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
         return (
@@ -20,12 +24,13 @@ export function NavLinks({ items }: { items: NavItem[] }) {
             key={item.href}
             href={item.href}
             aria-current={active ? "page" : undefined}
-            className={`rounded border-l-2 px-2 py-1.5 text-sm transition-colors duration-150 ${
+            className={`flex items-center gap-2.5 whitespace-nowrap rounded border-l-2 px-2.5 py-1.5 text-sm transition-colors duration-150 ${
               active
-                ? "border-brand bg-brand/10 font-medium text-brand"
-                : "border-transparent text-stone-700 hover:bg-stone-200 dark:text-stone-300 dark:hover:bg-stone-800"
+                ? "border-primary bg-primary/10 font-medium text-primary"
+                : "border-transparent text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
             }`}
           >
+            {item.icon}
             {item.label}
           </Link>
         );

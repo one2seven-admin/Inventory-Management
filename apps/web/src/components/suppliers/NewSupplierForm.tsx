@@ -13,7 +13,7 @@ export function NewSupplierForm() {
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New supplier</p>
+      <p className="mb-3 label-caps text-on-surface">New supplier</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Input name="name" placeholder="Name" required />
         <Input name="contactName" placeholder="Contact name" />
@@ -23,7 +23,7 @@ export function NewSupplierForm() {
         <Input name="deliverySchedule" placeholder="Delivery schedule" />
         <Input name="leadTimeDays" type="number" min={0} placeholder="Lead time (days)" />
       </div>
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Adding…" : "Add supplier"}
       </Button>

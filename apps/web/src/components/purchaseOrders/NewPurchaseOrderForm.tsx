@@ -25,7 +25,7 @@ export function NewPurchaseOrderForm({
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New purchase order</p>
+      <p className="mb-3 label-caps text-on-surface">New purchase order</p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Select name="supplierId" required defaultValue="">
           <option value="" disabled>
@@ -49,7 +49,7 @@ export function NewPurchaseOrderForm({
         </Select>
       </div>
 
-      <p className="mt-4 mb-2 text-xs uppercase text-stone-500">Line items</p>
+      <p className="mt-4 mb-2 label-caps text-on-surface-variant">Line items</p>
       <div className="flex flex-col gap-2">
         {Array.from({ length: LINE_ROWS }).map((_, index) => (
           <div key={index} className="grid grid-cols-3 gap-2">
@@ -67,7 +67,7 @@ export function NewPurchaseOrderForm({
         ))}
       </div>
 
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Creating…" : "Create purchase order"}
       </Button>

@@ -3,10 +3,9 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 type ButtonVariant = "primary" | "secondary" | "danger";
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: "bg-brand text-brand-foreground hover:bg-brand-hover",
-  secondary:
-    "border border-stone-300 bg-transparent text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800",
-  danger: "bg-rose-600 text-white hover:bg-rose-500 dark:bg-rose-600 dark:hover:bg-rose-500",
+  primary: "bg-primary-container text-on-primary-container hover:brightness-110",
+  secondary: "border border-primary text-primary bg-transparent hover:bg-primary/10",
+  danger: "bg-rose-600 text-white hover:bg-rose-500",
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -41,7 +40,7 @@ export function Button({
     <button
       disabled={disabled || pending}
       aria-busy={pending || undefined}
-      className={`inline-flex items-center justify-center gap-2 rounded px-4 py-1.5 text-sm font-medium transition-colors duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100 ${VARIANT_CLASSES[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded px-4 py-1.5 font-data-mono text-xs font-bold uppercase tracking-wide transition-colors duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100 ${VARIANT_CLASSES[variant]} ${className}`}
       {...props}
     >
       {pending ? <Spinner /> : null}

@@ -1,44 +1,53 @@
+import Link from "next/link";
 import type { Item, WastageLog } from "@platform/contracts";
+import { Trash2 } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
+import { Table, Thead, Th, Tr, Td, EmptyState } from "@/components/ui/Table";
 
 export function WastageTable({ logs, items }: { logs: WastageLog[]; items: Item[] }) {
   const itemsById = new Map(items.map((item) => [item.id, item]));
 
   if (logs.length === 0) {
-    return <p className="text-sm text-stone-500">No wastage logged for this location yet.</p>;
+    return (
+      <EmptyState
+        icon={<Trash2 className="h-6 w-6" aria-hidden="true" />}
+        action={
+          <Link href="/stock" className="label-caps text-primary hover:underline">
+            Log wastage on the Stock page →
+          </Link>
+        }
+      >
+        No wastage logged for this location yet.
+      </EmptyState>
+    );
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
-      <table className="w-full text-sm">
-        <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
-          <tr>
-            <th className="px-3 py-2">Item</th>
-            <th className="px-3 py-2">Quantity</th>
-            <th className="px-3 py-2">Reason</th>
-            <th className="px-3 py-2">Cost impact</th>
-            <th className="px-3 py-2">Station</th>
-            <th className="px-3 py-2">Logged</th>
-          </tr>
-        </thead>
-        <tbody>
-          {logs.map((log) => (
-            <tr
-              key={log.id}
-              className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
-            >
-              <td className="px-3 py-2">{itemsById.get(log.itemId)?.name ?? log.itemId}</td>
-              <td className="px-3 py-2">{log.quantity}</td>
-              <td className="px-3 py-2">
-                <Badge tone="danger">{log.reason.replaceAll("_", " ")}</Badge>
-              </td>
-              <td className="px-3 py-2">${log.costImpact.toFixed(2)}</td>
-              <td className="px-3 py-2">{log.station ?? "—"}</td>
-              <td className="px-3 py-2 text-xs text-stone-400">{new Date(log.createdAt).toLocaleString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <Thead>
+        <tr>
+          <Th>Item</Th>
+          <Th>Quantity</Th>
+          <Th>Reason</Th>
+          <Th>Cost impact</Th>
+          <Th>Station</Th>
+          <Th>Logged</Th>
+        </tr>
+      </Thead>
+      <tbody>
+        {logs.map((log) => (
+          <Tr key={log.id}>
+            <Td>{itemsById.get(log.itemId)?.name ?? log.itemId}</Td>
+            <Td className="font-data-mono">{log.quantity}</Td>
+            <Td>
+              <Badge tone="danger">{log.reason.replaceAll("_", " ")}</Badge>
+            </Td>
+            <Td className="font-data-mono">${log.costImpact.toFixed(2)}</Td>
+            <Td>{log.station ?? "—"}</Td>
+            <Td className="text-xs text-on-surface-variant">{new Date(log.createdAt).toLocaleString()}</Td>
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }

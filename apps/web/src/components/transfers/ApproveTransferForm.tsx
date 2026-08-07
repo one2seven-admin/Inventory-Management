@@ -15,7 +15,7 @@ export function ApproveTransferForm({ transferId }: { transferId: string }) {
       <Button type="submit" pending={isPending} className="px-2 py-1 text-xs">
         {isPending ? "Approving…" : "Approve"}
       </Button>
-      {state.error ? <p className="text-xs text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="text-xs text-danger">{state.error}</p> : null}
     </form>
   );
 }

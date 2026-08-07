@@ -9,7 +9,7 @@ cp .env.example .env
 npm run db:generate -w services/identity-service
 npm run db:push -w services/identity-service
 npm run db:seed -w services/identity-service   # creates owner@restaurant.test / Owner123!
-npm run dev -w services/identity-service        # http://localhost:4001
+npm run dev -w services/identity-service        # http://localhost:8001
 ```
 
 ## Endpoints

@@ -1,31 +1,40 @@
+import Link from "next/link";
 import type { DashboardSummary } from "@platform/contracts";
+import { Trash2 } from "lucide-react";
+import { Table, Thead, Th, Tr, Td, EmptyState } from "@/components/ui/Table";
 
 export function TopWastageList({ items }: { items: DashboardSummary["topWastageItems"] }) {
   if (items.length === 0) {
-    return <p className="text-sm text-stone-500">No wastage recorded recently.</p>;
+    return (
+      <EmptyState
+        icon={<Trash2 className="h-6 w-6" aria-hidden="true" />}
+        action={
+          <Link href="/stock" className="label-caps text-primary hover:underline">
+            Log wastage on the Stock page →
+          </Link>
+        }
+      >
+        No wastage recorded recently.
+      </EmptyState>
+    );
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
-      <table className="w-full text-sm">
-        <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
-          <tr>
-            <th className="px-3 py-2">Item</th>
-            <th className="px-3 py-2">Cost impact</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr
-              key={item.itemId}
-              className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
-            >
-              <td className="px-3 py-2">{item.itemName}</td>
-              <td className="px-3 py-2">${item.costImpact.toFixed(2)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <Thead>
+        <tr>
+          <Th>Item</Th>
+          <Th>Cost impact</Th>
+        </tr>
+      </Thead>
+      <tbody>
+        {items.map((item) => (
+          <Tr key={item.itemId}>
+            <Td>{item.itemName}</Td>
+            <Td className="font-data-mono">${item.costImpact.toFixed(2)}</Td>
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }

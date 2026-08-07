@@ -1,8 +1,9 @@
 "use client";
 
 import { useActionState } from "react";
+import { ClipboardList } from "lucide-react";
 import { createItemAction, type CreateItemActionState } from "@/actions/items/createItem";
-import { Card } from "@/components/ui/Card";
+import { Card, CardHeader } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
 import { Button } from "@/components/ui/Button";
@@ -25,7 +26,7 @@ export function NewItemForm() {
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New item</p>
+      <CardHeader title="Quick entry panel" icon={<ClipboardList className="h-3.5 w-3.5" aria-hidden="true" />} />
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Input name="sku" placeholder="SKU" required />
         <Input name="name" placeholder="Name" required />
@@ -45,10 +46,10 @@ export function NewItemForm() {
         <Input name="purchaseToStockFactor" type="number" step="any" placeholder="Purchase→Stock factor" required />
         <Input name="stockToRecipeFactor" type="number" step="any" placeholder="Stock→Recipe factor" required />
       </div>
-      <label className="mt-3 flex items-center gap-2 text-sm text-stone-700 dark:text-stone-300">
-        <input type="checkbox" name="isPerishable" /> Perishable
+      <label className="mt-3 flex items-center gap-2 text-sm text-on-surface-variant">
+        <input type="checkbox" name="isPerishable" className="accent-primary" /> Perishable
       </label>
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Adding…" : "Add item"}
       </Button>
