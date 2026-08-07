@@ -4,13 +4,14 @@ The platform's single public entry point. Verifies the caller's JWT (issued by i
 
 ## Routing
 
-`/api/v1/<service>/*` → that service's own root, e.g. `/api/v1/inventory/items` → `inventory-service:4002/items`.
+`/api/v1/<service>/*` → that service's own root, e.g. `/api/v1/inventory/items` → `inventory-service:8002/items`.
 
 Public (no JWT required): `POST /api/v1/identity/auth/login`, `/auth/refresh`, `/auth/logout`.
 
 ## Run
 
+Uses the root `.env` (`cp .env.example .env` at the repo root) — no per-service .env file.
+
 ```bash
-cp .env.example .env   # JWT_ACCESS_SECRET must match identity-service's
 npm run dev -w apps/gateway   # http://localhost:4000
 ```

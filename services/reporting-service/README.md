@@ -4,9 +4,10 @@ Dashboard KPIs and reports — PRD §3.17. Stateless: no database of its own, pu
 
 ## Run
 
+Uses the root `.env` (`cp .env.example .env` at the repo root) — no per-service .env file.
+
 ```bash
-cp .env.example .env
-npm run dev -w services/reporting-service   # http://localhost:4006
+npm run dev -w services/reporting-service   # http://localhost:8006
 ```
 
 Needs inventory-service, purchasing-service, and recipes-service running to return anything meaningful.

@@ -4,11 +4,12 @@ In-app notification center plus PAR-level low-stock and expiry-window alert dete
 
 ## Run
 
+Uses the root `.env` (`cp .env.example .env` at the repo root) — no per-service .env file.
+
 ```bash
-cp .env.example .env
 npm run db:generate -w services/notifications-service
 npm run db:push -w services/notifications-service
-npm run dev -w services/notifications-service   # http://localhost:4005
+npm run dev -w services/notifications-service   # http://localhost:8005
 ```
 
 Needs inventory-service running to have anything to detect against.
@@ -27,4 +28,4 @@ A background sweep (`src/alertScheduler.ts`) runs immediately on boot and then e
 
 ## Database
 
-Shares the platform's one Postgres database, isolated in its own `notifications` schema via `?schema=notifications` on `DATABASE_URL` — no cross-service DB access, only HTTP.
+Shares the platform's one Postgres database, isolated in its own `notifications` schema via `?schema=notifications` on `NOTIFICATIONS_DATABASE_URL` — no cross-service DB access, only HTTP.

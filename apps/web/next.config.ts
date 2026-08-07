@@ -1,4 +1,11 @@
 import type { NextConfig } from "next";
+import { loadEnvConfig } from "@next/env";
+import { fileURLToPath } from "node:url";
+
+// Single root .env for the whole monorepo — no per-service .env files. Uses
+// Next's own env loader (same one `next dev`/`next start` use internally),
+// just pointed at the repo root instead of this app's own directory.
+loadEnvConfig(fileURLToPath(new URL("../..", import.meta.url)));
 
 const nextConfig: NextConfig = {
   /* config options here */
