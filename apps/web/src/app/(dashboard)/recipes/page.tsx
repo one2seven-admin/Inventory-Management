@@ -30,8 +30,8 @@ export default async function RecipesPage() {
   return (
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Recipes</h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">Recipe &amp; sub-recipe BOM, costed against current stock </p>
+        <h1 className="font-headline text-2xl font-bold text-on-surface">Recipes</h1>
+        <p className="text-sm text-on-surface-variant">Recipe &amp; sub-recipe BOM, costed against current stock</p>
       </div>
       {canManage ? <NewRecipeForm items={items} subRecipes={subRecipes} /> : null}
       <RecipesTable recipes={recipes} costsById={costsById} />

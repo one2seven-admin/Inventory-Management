@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/Button";
 export function DateRangeForm({ from, to }: { from: string; to: string }) {
   return (
     <form method="get" className="flex flex-wrap items-center gap-2">
-      <label className="text-sm text-stone-500 dark:text-stone-400" htmlFor="from">
+      <label className="text-sm text-on-surface-variant" htmlFor="from">
         From
       </label>
       <Input id="from" name="from" type="date" defaultValue={from} />
-      <label className="text-sm text-stone-500 dark:text-stone-400" htmlFor="to">
+      <label className="text-sm text-on-surface-variant" htmlFor="to">
         To
       </label>
       <Input id="to" name="to" type="date" defaultValue={to} />

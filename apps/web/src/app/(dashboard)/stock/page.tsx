@@ -32,8 +32,8 @@ export default async function StockPage({
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Stock</h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400">Real-time on-hand stock</p>
+          <h1 className="font-headline text-2xl font-bold text-on-surface">Stock</h1>
+          <p className="text-sm text-on-surface-variant">Real-time on-hand stock</p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>
@@ -49,7 +49,7 @@ export default async function StockPage({
           </div>
         </>
       ) : (
-        <p className="text-sm text-stone-500 dark:text-stone-400">No locations yet.</p>
+        <p className="text-sm text-on-surface-variant">No locations yet.</p>
       )}
     </div>
   );
