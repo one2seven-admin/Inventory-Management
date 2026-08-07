@@ -15,7 +15,7 @@ export function NewTransferForm({ items, locations }: { items: Item[]; locations
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Request transfer (PRD §3.10)</p>
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Request transfer</p>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Select name="itemId" required defaultValue="">
           <option value="" disabled>
