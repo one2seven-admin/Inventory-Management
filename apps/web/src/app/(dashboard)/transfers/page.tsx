@@ -30,8 +30,8 @@ export default async function TransfersPage({
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Transfers</h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400">Inter-branch / central-kitchen stock transfers — PRD §3.10</p>
+          <h1 className="font-headline text-2xl font-bold text-on-surface">Transfers</h1>
+          <p className="text-sm text-on-surface-variant">Inter-branch / central-kitchen stock transfers</p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>
@@ -42,7 +42,7 @@ export default async function TransfersPage({
           <TransfersTable transfers={transfers} items={items} locations={locations} canApprove={canApprove} />
         </>
       ) : (
-        <p className="text-sm text-stone-500 dark:text-stone-400">No locations yet.</p>
+        <p className="text-sm text-on-surface-variant">No locations yet.</p>
       )}
     </div>
   );

@@ -1,42 +1,48 @@
-import type { Item } from "@platform/contracts";
-import { formatCurrency } from "@/lib/format/formatCurrency";
+import type { Item, ItemStatus } from "@platform/contracts";
+import { Table, Thead, Th, Tr, Td, EmptyState } from "@/components/ui/Table";
+import { Badge, type BadgeTone } from "@/components/ui/Badge";
+
+const STATUS_TONE: Record<ItemStatus, BadgeTone> = {
+  ACTIVE: "success",
+  INACTIVE: "neutral",
+  DISCONTINUED: "danger",
+};
 
 export function ItemsTable({ items }: { items: Item[] }) {
   if (items.length === 0) {
-    return <p className="text-sm text-stone-500 dark:text-stone-400">No items yet — add one below.</p>;
+    return <EmptyState>No items yet — add one above.</EmptyState>;
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-stone-200/70 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950">
-      <table className="w-full text-sm">
-        <thead className="bg-stone-50/80 text-left text-xs font-semibold tracking-wide uppercase text-stone-500 dark:bg-stone-900/60 dark:text-stone-400">
-          <tr>
-            <th className="px-3 py-2">SKU</th>
-            <th className="px-3 py-2">Name</th>
-            <th className="px-3 py-2">Category</th>
-            <th className="px-3 py-2">Stock UoM</th>
-            <th className="px-3 py-2">Avg. cost</th>
-            <th className="px-3 py-2">Perishable</th>
-            <th className="px-3 py-2">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((item) => (
-            <tr
-              key={item.id}
-              className="border-t border-stone-100 transition-colors duration-150 hover:bg-amber-50/60 dark:border-stone-800 dark:hover:bg-stone-900/50"
-            >
-              <td className="px-3 py-2 font-mono text-xs">{item.sku}</td>
-              <td className="px-3 py-2">{item.name}</td>
-              <td className="px-3 py-2">{item.category}</td>
-              <td className="px-3 py-2">{item.stockUom}</td>
-              <td className="px-3 py-2">{item.averageCost != null ? formatCurrency(item.averageCost) : "—"}</td>
-              <td className="px-3 py-2">{item.isPerishable ? "Yes" : "No"}</td>
-              <td className="px-3 py-2">{item.status}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <Thead>
+        <tr>
+          <Th>SKU</Th>
+          <Th>Name</Th>
+          <Th>Category</Th>
+          <Th>Stock UoM</Th>
+          <Th>Avg. cost</Th>
+          <Th>Perishable</Th>
+          <Th>Status</Th>
+        </tr>
+      </Thead>
+      <tbody>
+        {items.map((item) => (
+          <Tr key={item.id}>
+            <Td className="font-data-mono text-xs">{item.sku}</Td>
+            <Td className="font-medium">{item.name}</Td>
+            <Td className="text-on-surface-variant">{item.category}</Td>
+            <Td className="font-data-mono">{item.stockUom}</Td>
+            <Td className="font-data-mono">{item.averageCost != null ? `$${item.averageCost.toFixed(2)}` : "—"}</Td>
+            <Td>
+              <Badge tone={item.isPerishable ? "warning" : "neutral"}>{item.isPerishable ? "Yes" : "No"}</Badge>
+            </Td>
+            <Td>
+              <Badge tone={STATUS_TONE[item.status]}>{item.status}</Badge>
+            </Td>
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }

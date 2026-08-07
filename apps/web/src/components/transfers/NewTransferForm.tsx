@@ -15,8 +15,8 @@ export function NewTransferForm({ items, locations }: { items: Item[]; locations
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Request transfer (PRD §3.10)</p>
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <p className="mb-3 label-caps text-on-surface">Request transfer</p>
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Select name="itemId" required defaultValue="">
           <option value="" disabled>
             Item
@@ -49,7 +49,7 @@ export function NewTransferForm({ items, locations }: { items: Item[]; locations
         </Select>
         <Input name="requestedQuantity" type="number" step="any" min={0} placeholder="Quantity" required />
       </div>
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Requesting…" : "Request transfer"}
       </Button>

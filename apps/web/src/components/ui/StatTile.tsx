@@ -4,20 +4,21 @@ import { Card } from "./Card";
 export function StatTile({
   label,
   value,
+  icon,
   delayMs = 0,
 }: {
   label: string;
   value: ReactNode;
+  icon?: ReactNode;
   delayMs?: number;
 }) {
   return (
-    <Card
-      className="relative animate-fade-in-up overflow-hidden"
-      style={{ animationDelay: `${delayMs}ms` }}
-    >
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-amber-400 to-brand" />
-      <p className="text-xs font-medium tracking-wide text-stone-500 uppercase dark:text-stone-400">{label}</p>
-      <p className="mt-1.5 text-2xl font-bold tabular-nums text-stone-900 dark:text-stone-50">{value}</p>
+    <Card className="animate-fade-in-up" style={{ animationDelay: `${delayMs}ms` }}>
+      <div className="flex items-start justify-between">
+        <p className="label-caps text-on-surface-variant">{label}</p>
+        {icon ? <span className="text-on-surface-variant/60">{icon}</span> : null}
+      </div>
+      <p className="mt-2 font-data-mono text-2xl font-semibold text-on-surface">{value}</p>
     </Card>
   );
 }

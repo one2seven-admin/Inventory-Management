@@ -17,9 +17,9 @@ export function AdjustStockForm({ items, locationId }: { items: Item[]; location
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Adjust stock (PRD §3.11)</p>
+      <p className="mb-3 label-caps text-on-surface">Adjust stock</p>
       <input type="hidden" name="locationId" value={locationId} />
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
         <Select name="itemId" required defaultValue="" className="sm:col-span-2">
           <option value="" disabled>
             Item
@@ -43,7 +43,7 @@ export function AdjustStockForm({ items, locationId }: { items: Item[]; location
         </Select>
         <Input name="note" placeholder="Note (optional)" />
       </div>
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Adjusting…" : "Adjust"}
       </Button>

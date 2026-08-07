@@ -13,13 +13,13 @@ export function LoginForm() {
   return (
     <form action={formAction} className="flex flex-col gap-4">
       <div className="flex flex-col gap-1">
-        <label htmlFor="email" className="text-sm font-medium text-stone-700 dark:text-stone-300">
+        <label htmlFor="email" className="text-sm font-medium text-on-surface-variant">
           Email
         </label>
         <Input id="email" name="email" type="email" autoComplete="email" required className="w-full py-2" />
       </div>
       <div className="flex flex-col gap-1">
-        <label htmlFor="password" className="text-sm font-medium text-stone-700 dark:text-stone-300">
+        <label htmlFor="password" className="text-sm font-medium text-on-surface-variant">
           Password
         </label>
         <Input
@@ -31,7 +31,7 @@ export function LoginForm() {
           className="w-full py-2"
         />
       </div>
-      {state.error ? <p className="text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="w-full py-2">
         {isPending ? "Signing in…" : "Sign in"}
       </Button>

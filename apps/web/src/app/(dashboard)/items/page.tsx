@@ -10,8 +10,8 @@ export default async function ItemsPage() {
   return (
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Items</h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">Item master catalog — PRD §3.1</p>
+        <h1 className="font-headline text-2xl font-bold text-on-surface">Items</h1>
+        <p className="text-sm text-on-surface-variant">Item master catalog</p>
       </div>
       <NewItemForm />
       <ItemsTable items={items} />

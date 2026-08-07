@@ -34,23 +34,23 @@ export default async function ReportsPage({
   return (
     <div className="flex animate-fade-in-up flex-col gap-8">
       <div>
-        <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Reports</h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">Financial &amp; operational reporting — PRD §3.17</p>
+        <h1 className="font-headline text-2xl font-bold text-on-surface">Reports</h1>
+        <p className="text-sm text-on-surface-variant">Financial &amp; operational reporting</p>
       </div>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-lg font-medium text-stone-900 dark:text-stone-50">Food cost</h2>
+        <h2 className="font-headline text-lg font-bold text-on-surface">Food cost</h2>
         <FoodCostReportTable lines={foodCost} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-lg font-medium text-stone-900 dark:text-stone-50">Spend by supplier</h2>
+        <h2 className="font-headline text-lg font-bold text-on-surface">Spend by supplier</h2>
         <DateRangeForm from={from} to={to} />
         <SpendReportTable lines={spend} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="text-lg font-medium text-stone-900 dark:text-stone-50">Stock valuation</h2>
+        <h2 className="font-headline text-lg font-bold text-on-surface">Stock valuation</h2>
         <StockValuationTable report={valuation} />
       </section>
     </div>

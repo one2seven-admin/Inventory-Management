@@ -15,9 +15,9 @@ export function ReceiveStockForm({ items, locationId }: { items: Item[]; locatio
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Receive stock (PRD §3.4)</p>
+      <p className="mb-3 label-caps text-on-surface">Receive stock</p>
       <input type="hidden" name="locationId" value={locationId} />
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
         <Select name="itemId" required defaultValue="" className="sm:col-span-2">
           <option value="" disabled>
             Item
@@ -33,7 +33,7 @@ export function ReceiveStockForm({ items, locationId }: { items: Item[]; locatio
         <Input name="batchNumber" placeholder="Batch # (optional)" />
         <Input name="expiryDate" type="date" placeholder="Expiry (optional)" />
       </div>
-      {state.error ? <p className="mt-2 text-sm text-rose-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-sm text-danger">{state.error}</p> : null}
       <Button type="submit" pending={isPending} className="mt-3">
         {isPending ? "Receiving…" : "Receive"}
       </Button>
