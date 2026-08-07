@@ -3,6 +3,7 @@
         "web": {
             "root": "apps/web",
             "framework": "nextjs",
+            "buildCommand": "cd ../.. && npm run build:shared && cd apps/web && npm run build",
             "bindings": [
                 { "type": "service", "service": "gateway", "format": "url", "env": "GATEWAY_URL" }
             ]
@@ -10,6 +11,7 @@
         "gateway": {
             "root": "apps/gateway",
             "entrypoint": "src/server.ts",
+            "buildCommand": "cd ../.. && npm run build:shared && cd apps/gateway && npm run build",
             "bindings": [
                 { "type": "service", "service": "identity-service", "format": "url", "env": "IDENTITY_SERVICE_URL" },
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" },
@@ -21,15 +23,18 @@
         },
         "identity-service": {
             "root": "services/identity-service",
-            "entrypoint": "src/server.ts"
+            "entrypoint": "src/server.ts",
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/identity-service && npm run build"
         },
         "inventory-service": {
             "root": "services/inventory-service",
-            "entrypoint": "src/server.ts"
+            "entrypoint": "src/server.ts",
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/inventory-service && npm run build"
         },
         "notifications-service": {
             "root": "services/notifications-service",
             "entrypoint": "src/server.ts",
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/notifications-service && npm run build",
             "bindings": [
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" }
             ]
@@ -37,6 +42,7 @@
         "purchasing-service": {
             "root": "services/purchasing-service",
             "entrypoint": "src/server.ts",
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/purchasing-service && npm run build",
             "bindings": [
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" }
             ]
@@ -44,6 +50,7 @@
         "recipes-service": {
             "root": "services/recipes-service",
             "entrypoint": "src/server.ts",
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/recipes-service && npm run build",
             "bindings": [
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" }
             ]
@@ -51,6 +58,7 @@
         "reporting-service": {
             "root": "services/reporting-service",
             "entrypoint": "src/server.ts",
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/reporting-service && npm run build",
             "bindings": [
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" },
                 { "type": "service", "service": "purchasing-service", "format": "url", "env": "PURCHASING_SERVICE_URL" },
