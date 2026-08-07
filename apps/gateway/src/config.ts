@@ -5,7 +5,7 @@ function requireEnv(name: string): string {
 }
 
 export const config = {
-  port: Number(process.env.PORT ?? 4000),
+  port: Number(process.env.GATEWAY_PORT ?? 4000),
   jwtAccessSecret: requireEnv("JWT_ACCESS_SECRET"),
   services: {
     identity: requireEnv("IDENTITY_SERVICE_URL"),

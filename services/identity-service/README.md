@@ -5,7 +5,9 @@ Users, roles (RBAC per PRD §3.16/§6), and JWT authentication. Owns its own Pos
 ## Run
 
 ```bash
-cp .env.example .env
+Uses the root `.env` (`cp .env.example .env` at the repo root) — no per-service .env file.
+
+```bash
 npm run db:generate -w services/identity-service
 npm run db:push -w services/identity-service
 npm run db:seed -w services/identity-service   # creates owner@restaurant.test / Owner123!

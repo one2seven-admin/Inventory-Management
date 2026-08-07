@@ -24,7 +24,8 @@
     "db:seed": "npm run db:seed --workspaces --if-present"
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^9.0.1",
+    "dotenv-cli": "^7.4.2"
   },
   "allowScripts": {
     "@prisma/client@5.22.0": true,

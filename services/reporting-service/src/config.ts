@@ -5,7 +5,7 @@ function requireEnv(name: string): string {
 }
 
 export const config = {
-  port: Number(process.env.PORT ?? 4006),
+  port: Number(process.env.REPORTING_PORT ?? 8006),
   inventoryServiceUrl: requireEnv("INVENTORY_SERVICE_URL"),
   purchasingServiceUrl: requireEnv("PURCHASING_SERVICE_URL"),
   recipesServiceUrl: requireEnv("RECIPES_SERVICE_URL"),

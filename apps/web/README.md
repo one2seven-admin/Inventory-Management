@@ -7,7 +7,9 @@ Server Components fetch data directly from the gateway on every request (no cach
 ## Run
 
 ```bash
-cp .env.example .env   # GATEWAY_URL
+Uses the root `.env` (`cp .env.example .env` at the repo root) — no per-service .env file.
+
+```bash
 npm run build:shared   # compiles packages/contracts + packages/http-client — required before first run,
                         # and again any time either package's source changes (see note below)
 npm run dev -w apps/web   # http://localhost:3000
