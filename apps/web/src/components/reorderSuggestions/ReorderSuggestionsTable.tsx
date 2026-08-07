@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import type { Item, ReorderSuggestion, Supplier } from "@platform/contracts";
 import { convertToPoAction, type ConvertToPoActionState } from "@/actions/reorderSuggestions/convertToPo";
 import { Button } from "@/components/ui/Button";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 const initialState: ConvertToPoActionState = {};
 
@@ -64,7 +65,7 @@ export function ReorderSuggestionsTable({
                     ? suppliersById.get(suggestion.preferredSupplierId)?.name ?? suggestion.preferredSupplierId
                     : "—"}
                 </td>
-                <td className="px-3 py-2">{suggestion.lastPrice != null ? `$${suggestion.lastPrice.toFixed(2)}` : "—"}</td>
+                <td className="px-3 py-2">{suggestion.lastPrice != null ? formatCurrency(suggestion.lastPrice) : "—"}</td>
               </tr>
             ))}
           </tbody>

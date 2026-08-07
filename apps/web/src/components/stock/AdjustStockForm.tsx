@@ -17,7 +17,7 @@ export function AdjustStockForm({ items, locationId }: { items: Item[]; location
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Adjust stock (PRD §3.7)</p>
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Adjust stock (PRD §3.11)</p>
       <input type="hidden" name="locationId" value={locationId} />
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
         <Select name="itemId" required defaultValue="" className="sm:col-span-2">

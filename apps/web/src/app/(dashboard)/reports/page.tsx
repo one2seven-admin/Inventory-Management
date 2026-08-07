@@ -35,7 +35,7 @@ export default async function ReportsPage({
     <div className="flex animate-fade-in-up flex-col gap-8">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Reports</h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">Financial &amp; operational reporting — PRD §6</p>
+        <p className="text-sm text-stone-500 dark:text-stone-400">Financial &amp; operational reporting — PRD §3.17</p>
       </div>
 
       <section className="flex flex-col gap-3">

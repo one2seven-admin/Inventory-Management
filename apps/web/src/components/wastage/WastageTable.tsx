@@ -1,5 +1,6 @@
 import type { Item, WastageLog } from "@platform/contracts";
 import { Badge } from "@/components/ui/Badge";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function WastageTable({ logs, items }: { logs: WastageLog[]; items: Item[] }) {
   const itemsById = new Map(items.map((item) => [item.id, item]));
@@ -32,7 +33,7 @@ export function WastageTable({ logs, items }: { logs: WastageLog[]; items: Item[
               <td className="px-3 py-2">
                 <Badge tone="danger">{log.reason.replaceAll("_", " ")}</Badge>
               </td>
-              <td className="px-3 py-2">${log.costImpact.toFixed(2)}</td>
+              <td className="px-3 py-2">{formatCurrency(log.costImpact)}</td>
               <td className="px-3 py-2">{log.station ?? "—"}</td>
               <td className="px-3 py-2 text-xs text-stone-400">{new Date(log.createdAt).toLocaleString()}</td>
             </tr>

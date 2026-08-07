@@ -1,4 +1,5 @@
 import type { DashboardSummary } from "@platform/contracts";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function TopWastageList({ items }: { items: DashboardSummary["topWastageItems"] }) {
   if (items.length === 0) {
@@ -21,7 +22,7 @@ export function TopWastageList({ items }: { items: DashboardSummary["topWastageI
               className="border-t border-stone-100 transition-colors duration-150 hover:bg-amber-50/60 dark:border-stone-800 dark:hover:bg-stone-900/50"
             >
               <td className="px-3 py-2">{item.itemName}</td>
-              <td className="px-3 py-2">${item.costImpact.toFixed(2)}</td>
+              <td className="px-3 py-2">{formatCurrency(item.costImpact)}</td>
             </tr>
           ))}
         </tbody>

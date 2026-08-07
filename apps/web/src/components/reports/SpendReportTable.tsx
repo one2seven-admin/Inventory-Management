@@ -1,4 +1,5 @@
 import type { SpendReportLine } from "@platform/contracts";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function SpendReportTable({ lines }: { lines: SpendReportLine[] }) {
   if (lines.length === 0) {
@@ -23,14 +24,14 @@ export function SpendReportTable({ lines }: { lines: SpendReportLine[] }) {
               className="border-t border-stone-100 transition-colors duration-150 hover:bg-amber-50/60 dark:border-stone-800 dark:hover:bg-stone-900/50"
             >
               <td className="px-3 py-2">{line.groupLabel}</td>
-              <td className="px-3 py-2">${line.totalSpend.toFixed(2)}</td>
+              <td className="px-3 py-2">{formatCurrency(line.totalSpend)}</td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr className="border-t border-stone-200 font-semibold dark:border-stone-800">
             <td className="px-3 py-2">Total</td>
-            <td className="px-3 py-2">${total.toFixed(2)}</td>
+            <td className="px-3 py-2">{formatCurrency(total)}</td>
           </tr>
         </tfoot>
       </table>

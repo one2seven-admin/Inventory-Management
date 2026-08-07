@@ -1,4 +1,5 @@
 import type { StockValuationReport } from "@platform/contracts";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function StockValuationTable({ report }: { report: StockValuationReport }) {
   if (report.lines.length === 0) {
@@ -26,8 +27,8 @@ export function StockValuationTable({ report }: { report: StockValuationReport }
               <td className="px-3 py-2">{line.itemName}</td>
               <td className="px-3 py-2">{line.category}</td>
               <td className="px-3 py-2">{line.quantityOnHand}</td>
-              <td className="px-3 py-2">${line.unitCost.toFixed(2)}</td>
-              <td className="px-3 py-2">${line.totalValue.toFixed(2)}</td>
+              <td className="px-3 py-2">{formatCurrency(line.unitCost)}</td>
+              <td className="px-3 py-2">{formatCurrency(line.totalValue)}</td>
             </tr>
           ))}
         </tbody>
@@ -36,7 +37,7 @@ export function StockValuationTable({ report }: { report: StockValuationReport }
             <td className="px-3 py-2" colSpan={4}>
               Grand total
             </td>
-            <td className="px-3 py-2">${report.totalValue.toFixed(2)}</td>
+            <td className="px-3 py-2">{formatCurrency(report.totalValue)}</td>
           </tr>
         </tfoot>
       </table>

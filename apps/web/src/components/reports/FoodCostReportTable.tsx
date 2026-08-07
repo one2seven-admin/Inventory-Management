@@ -1,4 +1,5 @@
 import type { FoodCostReportLine } from "@platform/contracts";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function FoodCostReportTable({ lines }: { lines: FoodCostReportLine[] }) {
   if (lines.length === 0) {
@@ -23,8 +24,8 @@ export function FoodCostReportTable({ lines }: { lines: FoodCostReportLine[] }) 
               className="border-t border-stone-100 transition-colors duration-150 hover:bg-amber-50/60 dark:border-stone-800 dark:hover:bg-stone-900/50"
             >
               <td className="px-3 py-2">{line.recipeName}</td>
-              <td className="px-3 py-2">${line.plateCost.toFixed(2)}</td>
-              <td className="px-3 py-2">{line.sellingPrice != null ? `$${line.sellingPrice.toFixed(2)}` : "—"}</td>
+              <td className="px-3 py-2">{formatCurrency(line.plateCost)}</td>
+              <td className="px-3 py-2">{line.sellingPrice != null ? formatCurrency(line.sellingPrice) : "—"}</td>
               <td className="px-3 py-2">{line.foodCostPercent != null ? `${line.foodCostPercent.toFixed(1)}%` : "—"}</td>
             </tr>
           ))}

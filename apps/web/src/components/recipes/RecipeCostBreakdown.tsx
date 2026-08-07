@@ -1,5 +1,6 @@
 import type { RecipeCost } from "@platform/contracts";
 import { Card } from "@/components/ui/Card";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function RecipeCostBreakdown({ cost }: { cost: RecipeCost }) {
   return (
@@ -7,12 +8,12 @@ export function RecipeCostBreakdown({ cost }: { cost: RecipeCost }) {
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <p className="text-xs font-medium tracking-wide uppercase text-stone-500 dark:text-stone-400">Plate cost</p>
-          <p className="mt-1 text-xl font-semibold text-stone-900 dark:text-stone-50">${cost.plateCost.toFixed(2)}</p>
+          <p className="mt-1 text-xl font-semibold text-stone-900 dark:text-stone-50">{formatCurrency(cost.plateCost)}</p>
         </Card>
         <Card>
           <p className="text-xs font-medium tracking-wide uppercase text-stone-500 dark:text-stone-400">Selling price</p>
           <p className="mt-1 text-xl font-semibold text-stone-900 dark:text-stone-50">
-            {cost.sellingPrice != null ? `$${cost.sellingPrice.toFixed(2)}` : "—"}
+            {cost.sellingPrice != null ? formatCurrency(cost.sellingPrice) : "—"}
           </p>
         </Card>
         <Card>
@@ -43,8 +44,8 @@ export function RecipeCostBreakdown({ cost }: { cost: RecipeCost }) {
                 <td className="px-3 py-2">
                   {line.quantity} {line.unit}
                 </td>
-                <td className="px-3 py-2">${line.unitCost.toFixed(2)}</td>
-                <td className="px-3 py-2">${line.lineCost.toFixed(2)}</td>
+                <td className="px-3 py-2">{formatCurrency(line.unitCost)}</td>
+                <td className="px-3 py-2">{formatCurrency(line.lineCost)}</td>
               </tr>
             ))}
           </tbody>

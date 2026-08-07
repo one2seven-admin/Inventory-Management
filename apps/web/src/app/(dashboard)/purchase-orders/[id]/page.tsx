@@ -6,6 +6,7 @@ import { getAuthedGatewayClient } from "@/lib/api/getAuthedGatewayClient";
 import { getCurrentUser } from "@/lib/session/getCurrentUser";
 import { PoStatusBadge } from "@/components/purchaseOrders/PoStatusBadge";
 import { ApproveRejectForm } from "@/components/purchaseOrders/ApproveRejectForm";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 const RECEIVABLE_STATUSES = ["SENT", "CONFIRMED", "PARTIALLY_RECEIVED"];
 const APPROVABLE_STATUSES = ["DRAFT", "PENDING_APPROVAL"];
@@ -64,15 +65,15 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
                 <td className="px-3 py-2">{itemsById.get(line.itemId)?.name ?? line.itemId}</td>
                 <td className="px-3 py-2">{line.quantityOrdered}</td>
                 <td className="px-3 py-2">{line.quantityReceived}</td>
-                <td className="px-3 py-2">${line.unitPrice.toFixed(2)}</td>
-                <td className="px-3 py-2">${(line.quantityOrdered * line.unitPrice).toFixed(2)}</td>
+                <td className="px-3 py-2">{formatCurrency(line.unitPrice)}</td>
+                <td className="px-3 py-2">{formatCurrency(line.quantityOrdered * line.unitPrice)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <p className="text-right text-sm font-medium text-stone-900 dark:text-stone-50">
-        Total: ${po.totalAmount.toFixed(2)}
+        Total: {formatCurrency(po.totalAmount)}
       </p>
 
       {canApprove && APPROVABLE_STATUSES.includes(po.status) ? <ApproveRejectForm poId={po.id} /> : null}

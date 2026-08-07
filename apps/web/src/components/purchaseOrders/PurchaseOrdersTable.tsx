@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { PurchaseOrder, Supplier } from "@platform/contracts";
 import { PoStatusBadge } from "./PoStatusBadge";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function PurchaseOrdersTable({
   purchaseOrders,
@@ -41,7 +42,7 @@ export function PurchaseOrdersTable({
               </td>
               <td className="px-3 py-2">{suppliersById.get(po.supplierId)?.name ?? po.supplierId}</td>
               <td className="px-3 py-2">{po.lines.length}</td>
-              <td className="px-3 py-2">${po.totalAmount.toFixed(2)}</td>
+              <td className="px-3 py-2">{formatCurrency(po.totalAmount)}</td>
               <td className="px-3 py-2">
                 <PoStatusBadge status={po.status} />
               </td>

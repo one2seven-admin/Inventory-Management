@@ -1,4 +1,5 @@
 import type { Item } from "@platform/contracts";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function ItemsTable({ items }: { items: Item[] }) {
   if (items.length === 0) {
@@ -29,7 +30,7 @@ export function ItemsTable({ items }: { items: Item[] }) {
               <td className="px-3 py-2">{item.name}</td>
               <td className="px-3 py-2">{item.category}</td>
               <td className="px-3 py-2">{item.stockUom}</td>
-              <td className="px-3 py-2">{item.averageCost != null ? item.averageCost.toFixed(2) : "—"}</td>
+              <td className="px-3 py-2">{item.averageCost != null ? formatCurrency(item.averageCost) : "—"}</td>
               <td className="px-3 py-2">{item.isPerishable ? "Yes" : "No"}</td>
               <td className="px-3 py-2">{item.status}</td>
             </tr>

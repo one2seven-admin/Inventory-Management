@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Recipe, RecipeCost } from "@platform/contracts";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function RecipesTable({ recipes, costsById }: { recipes: Recipe[]; costsById: Map<string, RecipeCost> }) {
   if (recipes.length === 0) {
@@ -35,7 +36,7 @@ export function RecipesTable({ recipes, costsById }: { recipes: Recipe[]; costsB
                 <td className="px-3 py-2">
                   {recipe.yieldQuantity} {recipe.yieldUnit}
                 </td>
-                <td className="px-3 py-2">{cost ? `$${cost.plateCost.toFixed(2)}` : "—"}</td>
+                <td className="px-3 py-2">{cost ? formatCurrency(cost.plateCost) : "—"}</td>
                 <td className="px-3 py-2">{cost?.foodCostPercent != null ? `${cost.foodCostPercent.toFixed(1)}%` : "—"}</td>
               </tr>
             );

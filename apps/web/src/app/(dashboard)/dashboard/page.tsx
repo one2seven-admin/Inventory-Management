@@ -22,7 +22,7 @@ export default async function DashboardPage({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Dashboard</h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400">Operational overview — PRD §3.15</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400">Operational overview — PRD §3.17</p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>
