@@ -21,8 +21,8 @@ export default async function DashboardPage({
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">Dashboard</h1>
-          <p className="text-sm text-stone-500">Operational overview — PRD §3.15</p>
+          <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Dashboard</h1>
+          <p className="text-sm text-stone-500 dark:text-stone-400">Operational overview — PRD §3.15</p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>

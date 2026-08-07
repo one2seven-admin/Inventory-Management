@@ -1,6 +1,7 @@
 import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
 
-export const cardClassName = "rounded-lg border border-stone-200 p-4 dark:border-stone-800";
+export const cardClassName =
+  "rounded-xl border border-stone-200/70 bg-white p-4 shadow-sm transition-shadow duration-200 hover:shadow-md dark:border-stone-800 dark:bg-stone-950";
 
 type CardProps<T extends ElementType> = {
   as?: T;

@@ -15,8 +15,8 @@ export function NewUserForm() {
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New user</p>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">New user</p>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Input name="name" placeholder="Full name" required />
         <Input name="email" type="email" placeholder="Email" required />
         <Input name="password" type="password" placeholder="Temporary password" required minLength={8} />

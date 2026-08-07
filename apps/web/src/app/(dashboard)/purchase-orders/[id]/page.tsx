@@ -34,19 +34,19 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
   return (
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <Link href="/purchase-orders" className="text-sm text-brand transition-colors hover:underline">
+        <Link href="/purchase-orders" className="text-sm font-medium text-brand transition-colors duration-150 hover:text-brand-hover hover:underline">
           ← Purchase orders
         </Link>
         <div className="mt-2 flex items-center gap-3">
-          <h1 className="text-2xl font-semibold text-stone-900 dark:text-stone-50">{po.poNumber}</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">{po.poNumber}</h1>
           <PoStatusBadge status={po.status} />
         </div>
-        <p className="text-sm text-stone-500">Supplier: {supplier?.name ?? po.supplierId}</p>
+        <p className="text-sm text-stone-500 dark:text-stone-400">Supplier: {supplier?.name ?? po.supplierId}</p>
       </div>
 
-      <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
+      <div className="overflow-x-auto rounded-xl border border-stone-200/70 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950">
         <table className="w-full text-sm">
-          <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
+          <thead className="bg-stone-50/80 text-left text-xs font-semibold tracking-wide uppercase text-stone-500 dark:bg-stone-900/60 dark:text-stone-400">
             <tr>
               <th className="px-3 py-2">Item</th>
               <th className="px-3 py-2">Ordered</th>
@@ -59,7 +59,7 @@ export default async function PurchaseOrderDetailPage({ params }: { params: Prom
             {po.lines.map((line) => (
               <tr
                 key={line.id}
-                className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
+                className="border-t border-stone-100 transition-colors duration-150 hover:bg-amber-50/60 dark:border-stone-800 dark:hover:bg-stone-900/50"
               >
                 <td className="px-3 py-2">{itemsById.get(line.itemId)?.name ?? line.itemId}</td>
                 <td className="px-3 py-2">{line.quantityOrdered}</td>

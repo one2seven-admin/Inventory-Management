@@ -18,8 +18,8 @@ export function NewRecipeForm({ items, subRecipes }: { items: Item[]; subRecipes
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">New recipe</p>
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">New recipe</p>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Input name="name" placeholder="Name" required />
         <Select name="type" required defaultValue="">
           <option value="" disabled>
@@ -36,7 +36,7 @@ export function NewRecipeForm({ items, subRecipes }: { items: Item[]; subRecipes
       <p className="mt-4 mb-2 text-xs uppercase text-stone-500">Ingredients</p>
       <div className="flex flex-col gap-2">
         {Array.from({ length: INGREDIENT_ROWS }).map((_, index) => (
-          <div key={index} className="grid grid-cols-3 gap-2">
+          <div key={index} className="grid grid-cols-3 gap-3">
             <Select name="ingredientRef" defaultValue="" className="sm:col-span-1">
               <option value="">— Ingredient —</option>
               <optgroup label="Items">
