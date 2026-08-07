@@ -31,7 +31,7 @@ export default async function RecipesPage() {
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Recipes</h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">Recipe &amp; sub-recipe BOM, costed against current stock — PRD §3.6</p>
+        <p className="text-sm text-stone-500 dark:text-stone-400">Recipe &amp; sub-recipe BOM, costed against current stock </p>
       </div>
       {canManage ? <NewRecipeForm items={items} subRecipes={subRecipes} /> : null}
       <RecipesTable recipes={recipes} costsById={costsById} />

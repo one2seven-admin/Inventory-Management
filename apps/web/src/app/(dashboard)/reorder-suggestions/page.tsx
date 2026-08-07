@@ -31,7 +31,7 @@ export default async function ReorderSuggestionsPage({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Reorder suggestions</h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400">Automated PAR-based replenishment — PRD §3.13</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400">Automated PAR-based replenishment </p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>

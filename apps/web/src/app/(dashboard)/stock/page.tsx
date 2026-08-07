@@ -33,7 +33,7 @@ export default async function StockPage({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Stock</h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400">Real-time on-hand stock — PRD §3.5</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400">Real-time on-hand stock</p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>

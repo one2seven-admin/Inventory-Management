@@ -34,7 +34,7 @@ export default async function PurchaseOrdersPage({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Purchase orders</h1>
-          <p className="text-sm text-stone-500 dark:text-stone-400">Procurement workflow — PRD §3.3</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400">Procurement workflow</p>
         </div>
         <PoFilters suppliers={suppliers} selectedStatus={validStatus} selectedSupplierId={supplierId} />
       </div>

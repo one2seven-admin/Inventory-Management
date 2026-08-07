@@ -18,7 +18,7 @@ export default async function UsersPage() {
     <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-stone-900 dark:text-stone-50">Users</h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400">Role-based access control — PRD §3.16</p>
+        <p className="text-sm text-stone-500 dark:text-stone-400">Role-based access control</p>
       </div>
       <NewUserForm />
       <UsersTable users={users} />
