@@ -1,5 +1,5 @@
 export const config = {
-  port: Number(process.env.PORT ?? 4005),
+  port: Number(process.env.NOTIFICATIONS_PORT ?? 8005),
   // Server-to-server base URL for inventory-service, whose read endpoints
   // (below-par stock, expiring batches, items, locations) back the alert
   // detection functions in the alert-rules domain.

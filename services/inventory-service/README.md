@@ -4,17 +4,18 @@ Item master, locations, the stock ledger (receive/issue/adjust/transfer/count), 
 
 ## Run
 
+Uses the root `.env` (`cp .env.example .env` at the repo root) — no per-service .env file.
+
 ```bash
-cp .env.example .env
 npm run db:generate -w services/inventory-service
 npm run db:push -w services/inventory-service
 npm run db:seed -w services/inventory-service   # Main Branch location + a few sample items
-npm run dev -w services/inventory-service        # http://localhost:4002
+npm run dev -w services/inventory-service        # http://localhost:8002
 ```
 
 ## Notes
 
-- Shares the platform's one Postgres database, isolated in its own `inventory` schema via `?schema=inventory` on `DATABASE_URL` — no cross-service DB access, only HTTP.
+- Shares the platform's one Postgres database, isolated in its own `inventory` schema via `?schema=inventory` on `INVENTORY_DATABASE_URL` — no cross-service DB access, only HTTP.
 - On-hand stock is tracked per **item + location** (not per storage sub-area); storage area is recorded as descriptive metadata on individual ledger transactions.
 - Valuation uses **weighted-average cost** only for MVP (`Item.averageCost`, rolled forward on every `RECEIVE`). FIFO is defined in the shared contracts but not implemented — a P1 upgrade.
 - Perishable items are drawn down **FEFO** (earliest expiry first) automatically on `ISSUE`/`WASTAGE`, satisfying batch traceability without the P1 "block non-FEFO picks" enforcement UI.

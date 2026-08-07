@@ -1,6 +1,8 @@
 import Link from "next/link";
 import type { PurchaseOrder, Supplier } from "@platform/contracts";
+import { PackageSearch } from "lucide-react";
 import { PoStatusBadge } from "./PoStatusBadge";
+import { Table, Thead, Th, Tr, Td, EmptyState } from "@/components/ui/Table";
 
 export function PurchaseOrdersTable({
   purchaseOrders,
@@ -12,41 +14,50 @@ export function PurchaseOrdersTable({
   const suppliersById = new Map(suppliers.map((supplier) => [supplier.id, supplier]));
 
   if (purchaseOrders.length === 0) {
-    return <p className="text-sm text-zinc-500">No purchase orders match these filters.</p>;
+    return (
+      <EmptyState
+        icon={<PackageSearch className="h-6 w-6" aria-hidden="true" />}
+        action={
+          <Link href="/purchase-orders" className="label-caps text-primary hover:underline">
+            Clear filters →
+          </Link>
+        }
+      >
+        No purchase orders match these filters.
+      </EmptyState>
+    );
   }
 
   return (
-    <div className="overflow-x-auto rounded border border-zinc-200 dark:border-zinc-800">
-      <table className="w-full text-sm">
-        <thead className="bg-zinc-50 text-left text-xs uppercase text-zinc-500 dark:bg-zinc-900">
-          <tr>
-            <th className="px-3 py-2">PO #</th>
-            <th className="px-3 py-2">Supplier</th>
-            <th className="px-3 py-2">Lines</th>
-            <th className="px-3 py-2">Total</th>
-            <th className="px-3 py-2">Status</th>
-            <th className="px-3 py-2">Created</th>
-          </tr>
-        </thead>
-        <tbody>
-          {purchaseOrders.map((po) => (
-            <tr key={po.id} className="border-t border-zinc-100 dark:border-zinc-800">
-              <td className="px-3 py-2">
-                <Link href={`/purchase-orders/${po.id}`} className="font-medium text-blue-700 hover:underline dark:text-blue-400">
-                  {po.poNumber}
-                </Link>
-              </td>
-              <td className="px-3 py-2">{suppliersById.get(po.supplierId)?.name ?? po.supplierId}</td>
-              <td className="px-3 py-2">{po.lines.length}</td>
-              <td className="px-3 py-2">${po.totalAmount.toFixed(2)}</td>
-              <td className="px-3 py-2">
-                <PoStatusBadge status={po.status} />
-              </td>
-              <td className="px-3 py-2 text-xs text-zinc-400">{new Date(po.createdAt).toLocaleDateString()}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <Thead>
+        <tr>
+          <Th>PO #</Th>
+          <Th>Supplier</Th>
+          <Th>Lines</Th>
+          <Th>Total</Th>
+          <Th>Status</Th>
+          <Th>Created</Th>
+        </tr>
+      </Thead>
+      <tbody>
+        {purchaseOrders.map((po) => (
+          <Tr key={po.id}>
+            <Td className="font-data-mono">
+              <Link href={`/purchase-orders/${po.id}`} className="font-medium text-primary transition-colors hover:underline">
+                {po.poNumber}
+              </Link>
+            </Td>
+            <Td>{suppliersById.get(po.supplierId)?.name ?? po.supplierId}</Td>
+            <Td className="font-data-mono">{po.lines.length}</Td>
+            <Td className="font-data-mono">${po.totalAmount.toFixed(2)}</Td>
+            <Td>
+              <PoStatusBadge status={po.status} />
+            </Td>
+            <Td className="text-xs text-on-surface-variant">{new Date(po.createdAt).toLocaleDateString()}</Td>
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }

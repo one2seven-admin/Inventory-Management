@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "./loadEnv.js";
 import { prisma } from "./db/client.js";
 import { hashPassword } from "./lib/hashPassword.js";
 

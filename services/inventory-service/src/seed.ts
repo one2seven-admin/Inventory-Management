@@ -1,4 +1,4 @@
-import "dotenv/config";
+import "./loadEnv.js";
 import { prisma } from "./db/client.js";
 
 /** Seeds a starter location + a few common items so the UI has something to show. Idempotent. */

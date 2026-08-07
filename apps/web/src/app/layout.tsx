@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Hanken_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const headlineFont = Hanken_Grotesk({
+  variable: "--font-headline",
   subsets: ["latin"],
+  weight: ["600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const bodyFont = Inter({
+  variable: "--font-body",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
+const monoFont = JetBrains_Mono({
+  variable: "--font-data-mono",
+  subsets: ["latin"],
+  weight: ["500", "700"],
 });
 
 export const metadata: Metadata = {
@@ -21,9 +29,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${headlineFont.variable} ${bodyFont.variable} ${monoFont.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col font-body">{children}</body>
     </html>
   );
 }

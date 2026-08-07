@@ -20,18 +20,18 @@ export default async function WastagePage({
   const logs = locationId ? await client.get<WastageLog[]>("/inventory/wastage", { locationId }) : [];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Wastage</h1>
-          <p className="text-sm text-zinc-500">
-            Wastage log — PRD §3.8. Use the &quot;Log wastage&quot; form on the Stock page to record a new entry.
+          <h1 className="font-headline text-2xl font-bold text-on-surface">Wastage</h1>
+          <p className="text-sm text-on-surface-variant">
+            Wastage log. Use the &quot;Log wastage&quot; form on the Stock page to record a new entry.
           </p>
         </div>
         {locationId ? <LocationSwitcher locations={locations} selectedLocationId={locationId} /> : null}
       </div>
 
-      {locationId ? <WastageTable logs={logs} items={items} /> : <p className="text-sm text-zinc-500">No locations yet.</p>}
+      {locationId ? <WastageTable logs={logs} items={items} /> : <p className="text-sm text-on-surface-variant">No locations yet.</p>}
     </div>
   );
 }

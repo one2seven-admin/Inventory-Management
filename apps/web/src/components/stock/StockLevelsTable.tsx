@@ -1,48 +1,48 @@
 import type { Item, StockLevel } from "@platform/contracts";
+import { Badge } from "@/components/ui/Badge";
+import { Table, Thead, Th, Tr, Td, EmptyState } from "@/components/ui/Table";
 
 export function StockLevelsTable({ levels, items }: { levels: StockLevel[]; items: Item[] }) {
   const itemsById = new Map(items.map((item) => [item.id, item]));
 
   if (levels.length === 0) {
-    return <p className="text-sm text-zinc-500">No stock on hand at this location yet.</p>;
+    return <EmptyState>No stock on hand at this location yet — use the &quot;Receive stock&quot; form below.</EmptyState>;
   }
 
   return (
-    <div className="overflow-x-auto rounded border border-zinc-200 dark:border-zinc-800">
-      <table className="w-full text-sm">
-        <thead className="bg-zinc-50 text-left text-xs uppercase text-zinc-500 dark:bg-zinc-900">
-          <tr>
-            <th className="px-3 py-2">Item</th>
-            <th className="px-3 py-2">On hand</th>
-            <th className="px-3 py-2">PAR</th>
-            <th className="px-3 py-2">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {levels.map((level) => {
-            const item = itemsById.get(level.itemId);
-            const belowPar = level.parLevel != null && level.quantityOnHand < level.parLevel;
-            return (
-              <tr key={level.itemId} className="border-t border-zinc-100 dark:border-zinc-800">
-                <td className="px-3 py-2">{item ? item.name : level.itemId}</td>
-                <td className="px-3 py-2">
-                  {level.quantityOnHand} {item?.stockUom}
-                </td>
-                <td className="px-3 py-2">{level.parLevel ?? "—"}</td>
-                <td className="px-3 py-2">
-                  {belowPar ? (
-                    <span className="rounded bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-red-950 dark:text-red-300">
-                      Below PAR
-                    </span>
-                  ) : (
-                    <span className="text-xs text-zinc-400">OK</span>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <Thead>
+        <tr>
+          <Th>Item</Th>
+          <Th>On hand</Th>
+          <Th>PAR</Th>
+          <Th>Status</Th>
+        </tr>
+      </Thead>
+      <tbody>
+        {levels.map((level) => {
+          const item = itemsById.get(level.itemId);
+          const belowPar = level.parLevel != null && level.quantityOnHand < level.parLevel;
+          return (
+            <Tr key={level.itemId}>
+              <Td>{item ? item.name : level.itemId}</Td>
+              <Td className="font-data-mono">
+                {level.quantityOnHand} {item?.stockUom}
+              </Td>
+              <Td className="font-data-mono">{level.parLevel ?? "—"}</Td>
+              <Td>
+                {belowPar ? (
+                  <Badge tone="danger" pulse>
+                    Below PAR
+                  </Badge>
+                ) : (
+                  <Badge tone="success">OK</Badge>
+                )}
+              </Td>
+            </Tr>
+          );
+        })}
+      </tbody>
+    </Table>
   );
 }

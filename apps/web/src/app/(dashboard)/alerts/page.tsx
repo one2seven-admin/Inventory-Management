@@ -22,29 +22,29 @@ export default async function AlertsPage({
   const canRunAlertRules = user?.roles.some((role) => roleHasCapability(role, "MANAGE_USERS")) ?? false;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Alerts</h1>
-          <p className="text-sm text-zinc-500">Notification center — PRD §3.18</p>
+          <h1 className="font-headline text-2xl font-bold text-on-surface">Alerts</h1>
+          <p className="text-sm text-on-surface-variant">Notification center</p>
         </div>
         <div className="flex items-center gap-2">
           <Link
             href="/alerts"
-            className={`rounded border px-3 py-1.5 text-sm ${
+            className={`rounded border px-3 py-1.5 text-sm transition-colors duration-150 ${
               unreadOnly !== "true"
-                ? "border-zinc-900 dark:border-zinc-100"
-                : "border-zinc-300 text-zinc-500 dark:border-zinc-700"
+                ? "border-primary text-primary"
+                : "border-outline text-on-surface-variant hover:bg-surface-container-high"
             }`}
           >
             All
           </Link>
           <Link
             href="/alerts?unreadOnly=true"
-            className={`rounded border px-3 py-1.5 text-sm ${
+            className={`rounded border px-3 py-1.5 text-sm transition-colors duration-150 ${
               unreadOnly === "true"
-                ? "border-zinc-900 dark:border-zinc-100"
-                : "border-zinc-300 text-zinc-500 dark:border-zinc-700"
+                ? "border-primary text-primary"
+                : "border-outline text-on-surface-variant hover:bg-surface-container-high"
             }`}
           >
             Unread

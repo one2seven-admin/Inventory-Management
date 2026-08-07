@@ -1,14 +1,16 @@
 import type { Item, Location, StockTransferRequest, TransferStatus } from "@platform/contracts";
+import { Badge, type BadgeTone } from "@/components/ui/Badge";
+import { Table, Thead, Th, Tr, Td, EmptyState } from "@/components/ui/Table";
 import { ApproveTransferForm } from "./ApproveTransferForm";
 import { DispatchTransferForm } from "./DispatchTransferForm";
 import { ReceiveTransferForm } from "./ReceiveTransferForm";
 
-const STATUS_CLASSES: Record<TransferStatus, string> = {
-  REQUESTED: "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
-  APPROVED: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
-  DISPATCHED: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
-  RECEIVED: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
-  CANCELLED: "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300",
+const STATUS_TONE: Record<TransferStatus, BadgeTone> = {
+  REQUESTED: "neutral",
+  APPROVED: "warning",
+  DISPATCHED: "warning",
+  RECEIVED: "success",
+  CANCELLED: "danger",
 };
 
 export function TransfersTable({
@@ -26,48 +28,44 @@ export function TransfersTable({
   const locationsById = new Map(locations.map((location) => [location.id, location]));
 
   if (transfers.length === 0) {
-    return <p className="text-sm text-zinc-500">No transfers involving this location yet.</p>;
+    return <EmptyState>No transfers involving this location yet — use the &quot;Request transfer&quot; form above.</EmptyState>;
   }
 
   return (
-    <div className="overflow-x-auto rounded border border-zinc-200 dark:border-zinc-800">
-      <table className="w-full text-sm">
-        <thead className="bg-zinc-50 text-left text-xs uppercase text-zinc-500 dark:bg-zinc-900">
-          <tr>
-            <th className="px-3 py-2">Item</th>
-            <th className="px-3 py-2">From</th>
-            <th className="px-3 py-2">To</th>
-            <th className="px-3 py-2">Requested</th>
-            <th className="px-3 py-2">Status</th>
-            <th className="px-3 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transfers.map((transfer) => (
-            <tr key={transfer.id} className="border-t border-zinc-100 dark:border-zinc-800">
-              <td className="px-3 py-2">{itemsById.get(transfer.itemId)?.name ?? transfer.itemId}</td>
-              <td className="px-3 py-2">{locationsById.get(transfer.sourceLocationId)?.name ?? transfer.sourceLocationId}</td>
-              <td className="px-3 py-2">{locationsById.get(transfer.destinationLocationId)?.name ?? transfer.destinationLocationId}</td>
-              <td className="px-3 py-2">{transfer.requestedQuantity}</td>
-              <td className="px-3 py-2">
-                <span className={`rounded px-2 py-0.5 text-xs font-medium ${STATUS_CLASSES[transfer.status]}`}>
-                  {transfer.status}
-                </span>
-              </td>
-              <td className="px-3 py-2">
-                {transfer.status === "REQUESTED" && canApprove ? <ApproveTransferForm transferId={transfer.id} /> : null}
-                {transfer.status === "APPROVED" ? <DispatchTransferForm transferId={transfer.id} /> : null}
-                {transfer.status === "DISPATCHED" ? (
-                  <ReceiveTransferForm
-                    transferId={transfer.id}
-                    defaultQuantity={transfer.dispatchedQuantity ?? transfer.requestedQuantity}
-                  />
-                ) : null}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table>
+      <Thead>
+        <tr>
+          <Th>Item</Th>
+          <Th>From</Th>
+          <Th>To</Th>
+          <Th>Requested</Th>
+          <Th>Status</Th>
+          <Th>Action</Th>
+        </tr>
+      </Thead>
+      <tbody>
+        {transfers.map((transfer) => (
+          <Tr key={transfer.id}>
+            <Td>{itemsById.get(transfer.itemId)?.name ?? transfer.itemId}</Td>
+            <Td>{locationsById.get(transfer.sourceLocationId)?.name ?? transfer.sourceLocationId}</Td>
+            <Td>{locationsById.get(transfer.destinationLocationId)?.name ?? transfer.destinationLocationId}</Td>
+            <Td className="font-data-mono">{transfer.requestedQuantity}</Td>
+            <Td>
+              <Badge tone={STATUS_TONE[transfer.status]}>{transfer.status}</Badge>
+            </Td>
+            <Td>
+              {transfer.status === "REQUESTED" && canApprove ? <ApproveTransferForm transferId={transfer.id} /> : null}
+              {transfer.status === "APPROVED" ? <DispatchTransferForm transferId={transfer.id} /> : null}
+              {transfer.status === "DISPATCHED" ? (
+                <ReceiveTransferForm
+                  transferId={transfer.id}
+                  defaultQuantity={transfer.dispatchedQuantity ?? transfer.requestedQuantity}
+                />
+              ) : null}
+            </Td>
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }

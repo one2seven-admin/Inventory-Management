@@ -5,7 +5,9 @@ Recipe/BOM management with costing, and POS-triggered + manual stock deduction â
 ## Run
 
 ```bash
-cp .env.example .env   # then fill in the real DATABASE_URL (see services/inventory-service/.env for the shape)
+Uses the root `.env` (`cp .env.example .env` at the repo root) â€” no per-service .env file.
+
+```bash
 npm run db:generate -w services/recipes-service
 npm run db:push -w services/recipes-service
 npm run db:seed -w services/recipes-service      # optional: one sample "Margherita Pizza" recipe

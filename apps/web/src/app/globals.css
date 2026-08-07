@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
+/* Design system: "Kinetic Amber" — minimalist-industrial, data-dense, mono-for-data.
+   Light values are this app's own extrapolation (the source design only specified a
+   dark theme) — same structural roles, recalibrated for contrast on a light ground. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafaf9;
+  --surface-container-low: #f5f4f2;
+  --surface-container: #ffffff;
+  --surface-container-high: #efece6;
+  --surface-container-highest: #e5e1d8;
+  --on-surface: #1c1917;
+  --on-surface-variant: #6b5f4f;
+  --outline: #c9bea8;
+  --outline-variant: #e5ddd0;
+
+  --primary: #b45309;
+  --on-primary: #1c1917;
+  --primary-container: #f59e0b;
+  --on-primary-container: #1c1917;
+
+  --success: #15803d;
+  --success-container: #dcfce7;
+  --warning: #a16207;
+  --warning-container: #fef3c7;
+  --danger: #be123c;
+  --danger-container: #ffe4e6;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+
+  --color-success: var(--success);
+  --color-success-container: var(--success-container);
+  --color-warning: var(--warning);
+  --color-warning-container: var(--warning-container);
+  --color-danger: var(--danger);
+  --color-danger-container: var(--danger-container);
+
+  --font-headline: var(--font-headline), sans-serif;
+  --font-body: var(--font-body), sans-serif;
+  --font-data-mono: var(--font-data-mono), monospace;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121414;
+    --surface-container-low: #1a1c1c;
+    --surface-container: #1e2020;
+    --surface-container-high: #282a2b;
+    --surface-container-highest: #333535;
+    --on-surface: #e2e2e2;
+    --on-surface-variant: #b0a696;
+    --outline: #6e6252;
+    --outline-variant: #37393a;
+
+    --primary: #ffb300;
+    --on-primary: #2b1c00;
+    --primary-container: #ffb300;
+    --on-primary-container: #2b1c00;
+
+    --success: #4ade80;
+    --success-container: #0f2e1c;
+    --warning: #fbbf24;
+    --warning-container: #3a2c05;
+    --danger: #fb7185;
+    --danger-container: #3f0d16;
   }
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--on-surface);
+  font-family: var(--font-body), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-headline), sans-serif;
+}
+
+/* Data/label mono style used for SKUs, quantities, table headers, and status chips —
+   the "technical instrument" cue from the design system. */
+.font-data-mono {
+  font-family: var(--font-data-mono), monospace;
+}
+
+.label-caps {
+  font-family: var(--font-data-mono), monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Entrance animation — applied once per page's top-level content wrapper. */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 300ms ease-out both;
+}
+
+/* Respect reduced-motion preference for all animation/transitions, including
+   Tailwind's built-in animate-spin / animate-pulse used by the Button spinner
+   and urgent status badges. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

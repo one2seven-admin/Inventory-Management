@@ -2,6 +2,7 @@
 
 import type { PoStatus, Supplier } from "@platform/contracts";
 import { poStatusSchema } from "@platform/contracts";
+import { Select } from "@/components/ui/Select";
 
 export function PoFilters({
   suppliers,
@@ -12,16 +13,12 @@ export function PoFilters({
   selectedStatus?: PoStatus;
   selectedSupplierId?: string;
 }) {
-  const inputClass =
-    "rounded border border-zinc-300 bg-white px-2 py-1.5 text-sm dark:border-zinc-700 dark:bg-zinc-900";
-
   return (
     <form method="get" className="flex flex-wrap items-center gap-2">
-      <select
+      <Select
         name="status"
         defaultValue={selectedStatus ?? ""}
         onChange={(event) => event.currentTarget.form?.requestSubmit()}
-        className={inputClass}
       >
         <option value="">All statuses</option>
         {poStatusSchema.options.map((status) => (
@@ -29,12 +26,11 @@ export function PoFilters({
             {status.replaceAll("_", " ")}
           </option>
         ))}
-      </select>
-      <select
+      </Select>
+      <Select
         name="supplierId"
         defaultValue={selectedSupplierId ?? ""}
         onChange={(event) => event.currentTarget.form?.requestSubmit()}
-        className={inputClass}
       >
         <option value="">All suppliers</option>
         {suppliers.map((supplier) => (
@@ -42,9 +38,9 @@ export function PoFilters({
             {supplier.name}
           </option>
         ))}
-      </select>
+      </Select>
       <noscript>
-        <button type="submit" className="rounded border px-2 py-1.5 text-sm">
+        <button type="submit" className="rounded-lg border border-stone-300 px-2 py-1.5 text-sm shadow-sm dark:border-stone-700">
           Filter
         </button>
       </noscript>

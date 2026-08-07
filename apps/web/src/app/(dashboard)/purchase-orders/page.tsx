@@ -30,11 +30,11 @@ export default async function PurchaseOrdersPage({
   const canCreate = user?.roles.some((role) => roleHasCapability(role, "CREATE_PURCHASE_ORDER")) ?? false;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Purchase orders</h1>
-          <p className="text-sm text-zinc-500">Procurement workflow — PRD §3.3</p>
+          <h1 className="font-headline text-2xl font-bold text-on-surface">Purchase orders</h1>
+          <p className="text-sm text-on-surface-variant">Procurement workflow</p>
         </div>
         <PoFilters suppliers={suppliers} selectedStatus={validStatus} selectedSupplierId={supplierId} />
       </div>

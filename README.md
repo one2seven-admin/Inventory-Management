@@ -9,18 +9,18 @@ apps/
   web/                    Next.js 16 (App Router) — frontend/BFF                     :3000
   gateway/                Verifies JWTs, proxies /api/v1/<service>/* downstream       :4000
 services/
-  identity-service/       users, roles (RBAC), JWT auth                              :4001
-  inventory-service/      items, locations, stock ledger, transfers, batches, wastage :4002
-  purchasing-service/     suppliers, purchase orders, GRN, reorder suggestions        :4003
-  recipes-service/        recipe/BOM costing, POS sale-event & manual stock deduction :4004
-  notifications-service/  PAR/expiry alert detection, in-app notification center      :4005
-  reporting-service/      dashboard KPIs, food-cost/spend/valuation reports           :4006
+  identity-service/       users, roles (RBAC), JWT auth                              :8001
+  inventory-service/      items, locations, stock ledger, transfers, batches, wastage :8002
+  purchasing-service/     suppliers, purchase orders, GRN, reorder suggestions        :8003
+  recipes-service/        recipe/BOM costing, POS sale-event & manual stock deduction :8004
+  notifications-service/  PAR/expiry alert detection, in-app notification center      :8005
+  reporting-service/      dashboard KPIs, food-cost/spend/valuation reports           :8006
 packages/
   contracts/              shared Zod schemas + TS types — the only code shared between services
   http-client/            tiny typed fetch wrapper used by every service/app to call another
 ```
 
-Every backend service except `reporting-service` owns its own Postgres **schema** inside one shared Neon database (`?schema=<service>` on `DATABASE_URL`) — no service reads another's tables directly, only HTTP. `reporting-service` is fully stateless: it has no database of its own and computes everything by fanning out, in parallel, to the other services' read endpoints on every request. `notifications-service` persists its own notification rows, but the low-stock/expiry *detection* that creates them is itself a poller over inventory-service's read endpoints.
+Every backend service except `reporting-service` owns its own Postgres **schema** inside one shared Neon database (`?schema=<service>` on its own `<SERVICE>_DATABASE_URL` in the root `.env`) — no service reads another's tables directly, only HTTP. `reporting-service` is fully stateless: it has no database of its own and computes everything by fanning out, in parallel, to the other services' read endpoints on every request. `notifications-service` persists its own notification rows, but the low-stock/expiry *detection* that creates them is itself a poller over inventory-service's read endpoints.
 
 **Trust boundary**: the gateway is the only publicly reachable entry point. It verifies the caller's JWT (issued by identity-service) and injects `x-user-id` / `x-user-email` / `x-user-roles` / `x-user-locations` headers on the proxied request, stripping any client-supplied versions of those headers first — so every downstream service can trust them unconditionally without re-verifying the token itself.
 
@@ -39,23 +39,18 @@ npm install
 # Shared packages must be compiled before anything imports them
 npm run build:shared
 
-# For each service EXCEPT reporting-service (which has no database of its
-# own — it's a stateless aggregator, see the architecture table above):
-for name in identity-service inventory-service purchasing-service recipes-service notifications-service; do
-  cp services/$name/.env.example services/$name/.env
-  # edit DATABASE_URL — same Postgres connection string across every service,
-  # only the &schema=<name> query param differs
-done
-npm run db:generate    # runs --workspaces --if-present, skips reporting-service automatically
+# One .env at the repo root — every app/service reads from it, no per-service
+# .env files.
+cp .env.example .env
+# edit the *_DATABASE_URL vars — same Postgres connection string across every
+# service, only the &schema=<name> query param differs
+
+npm run db:generate    # runs --workspaces --if-present, skips reporting-service/gateway/web automatically
 npm run db:push        # creates each service's schema in your Postgres database
 
 # identity-service and inventory-service ship a seed script:
 npm run db:seed -w services/identity-service    # owner@restaurant.test / Owner123!
 npm run db:seed -w services/inventory-service    # a starter location + a few sample items
-
-cp services/reporting-service/.env.example services/reporting-service/.env
-cp apps/gateway/.env.example apps/gateway/.env    # JWT_ACCESS_SECRET must match identity-service's
-cp apps/web/.env.example apps/web/.env
 ```
 
 ## Run everything

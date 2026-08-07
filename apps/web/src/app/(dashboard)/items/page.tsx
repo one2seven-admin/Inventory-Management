@@ -8,10 +8,10 @@ export default async function ItemsPage() {
   const items = await client.get<Item[]>("/inventory/items");
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Items</h1>
-        <p className="text-sm text-zinc-500">Item master catalog — PRD §3.1</p>
+        <h1 className="font-headline text-2xl font-bold text-on-surface">Items</h1>
+        <p className="text-sm text-on-surface-variant">Item master catalog</p>
       </div>
       <NewItemForm />
       <ItemsTable items={items} />

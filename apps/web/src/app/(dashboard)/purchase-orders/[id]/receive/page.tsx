@@ -23,13 +23,13 @@ export default async function ReceivePurchaseOrderPage({ params }: { params: Pro
   const items = await client.get<Item[]>("/inventory/items");
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <Link href={`/purchase-orders/${po.id}`} className="text-sm text-blue-700 hover:underline dark:text-blue-400">
+        <Link href={`/purchase-orders/${po.id}`} className="text-sm text-primary transition-colors hover:underline">
           ← {po.poNumber}
         </Link>
-        <h1 className="mt-2 text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Receive goods</h1>
-        <p className="text-sm text-zinc-500">PRD §3.4</p>
+        <h1 className="mt-2 font-headline text-2xl font-bold text-on-surface">Receive goods</h1>
+        <p className="text-sm text-on-surface-variant">Record quantities received against this purchase order.</p>
       </div>
       <ReceiveGrnForm purchaseOrder={po} items={items} />
     </div>

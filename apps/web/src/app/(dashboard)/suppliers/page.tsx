@@ -11,10 +11,10 @@ export default async function SuppliersPage() {
   const canManage = user?.roles.some((role) => roleHasCapability(role, "MANAGE_ITEM_MASTER")) ?? false;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex animate-fade-in-up flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-50">Suppliers</h1>
-        <p className="text-sm text-zinc-500">Supplier master &amp; pricing — PRD §3.2</p>
+        <h1 className="font-headline text-2xl font-bold text-on-surface">Suppliers</h1>
+        <p className="text-sm text-on-surface-variant">Supplier master &amp; pricing</p>
       </div>
       {canManage ? <NewSupplierForm /> : null}
       <SuppliersTable suppliers={suppliers} />
