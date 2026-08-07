@@ -19,9 +19,11 @@ export function StockValuationTable({ report }: { report: StockValuationReport }
           </tr>
         </thead>
         <tbody>
-          {report.lines.map((line) => (
+          {report.lines.map((line, index) => (
             <tr
-              key={line.itemId}
+              // Not filtered to one location here, so the same item legitimately
+              // appears once per location it has stock at — itemId alone isn't unique.
+              key={`${line.itemId}-${index}`}
               className="border-t border-stone-100 transition-colors duration-150 hover:bg-amber-50/60 dark:border-stone-800 dark:hover:bg-stone-900/50"
             >
               <td className="px-3 py-2">{line.itemName}</td>
