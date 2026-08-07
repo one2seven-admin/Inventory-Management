@@ -1,0 +1,77 @@
+{
+    "services": {
+        "web": {
+            "root": "apps/web",
+            "framework": "nextjs"
+        },
+        "identity-service": {
+            "root": "services/identity-service"
+        },
+        "inventory-service": {
+            "root": "services/inventory-service"
+        },
+        "notifications-service": {
+            "root": "services/notifications-service"
+        },
+        "purchasing-service": {
+            "root": "services/purchasing-service"
+        },
+        "recipes-service": {
+            "root": "services/recipes-service"
+        },
+        "reporting-service": {
+            "root": "services/reporting-service"
+        }
+    },
+    "rewrites": [
+        {
+            "source": "/api/notifications-service(/.*)?",
+            "destination": {
+                "type": "service",
+                "service": "notifications-service"
+            }
+        },
+        {
+            "source": "/api/purchasing-service(/.*)?",
+            "destination": {
+                "type": "service",
+                "service": "purchasing-service"
+            }
+        },
+        {
+            "source": "/api/inventory-service(/.*)?",
+            "destination": {
+                "type": "service",
+                "service": "inventory-service"
+            }
+        },
+        {
+            "source": "/api/reporting-service(/.*)?",
+            "destination": {
+                "type": "service",
+                "service": "reporting-service"
+            }
+        },
+        {
+            "source": "/api/identity-service(/.*)?",
+            "destination": {
+                "type": "service",
+                "service": "identity-service"
+            }
+        },
+        {
+            "source": "/api/recipes-service(/.*)?",
+            "destination": {
+                "type": "service",
+                "service": "recipes-service"
+            }
+        },
+        {
+            "source": "/(.*)",
+            "destination": {
+                "type": "service",
+                "service": "web"
+            }
+        }
+    ]
+}
