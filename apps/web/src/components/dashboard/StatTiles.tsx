@@ -1,9 +1,10 @@
 import type { DashboardSummary } from "@platform/contracts";
 import { StatTile } from "@/components/ui/StatTile";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 export function StatTiles({ summary }: { summary: DashboardSummary }) {
   const tiles = [
-    { label: "Stock value", value: `$${summary.stockValue.toFixed(2)}` },
+    { label: "Stock value", value: formatCurrency(summary.stockValue) },
     {
       label: "Food cost %",
       value: summary.foodCostPercent != null ? `${summary.foodCostPercent.toFixed(1)}%` : "—",

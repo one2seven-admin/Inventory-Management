@@ -17,9 +17,9 @@ export function LogWastageForm({ items, locationId }: { items: Item[]; locationI
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">Log wastage (PRD §3.8)</p>
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Log wastage (PRD §3.8)</p>
       <input type="hidden" name="locationId" value={locationId} />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Select name="itemId" required defaultValue="" className="sm:col-span-2">
           <option value="" disabled>
             Item

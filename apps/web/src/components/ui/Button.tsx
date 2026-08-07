@@ -3,10 +3,12 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 type ButtonVariant = "primary" | "secondary" | "danger";
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: "bg-brand text-brand-foreground hover:bg-brand-hover",
+  primary:
+    "bg-gradient-to-b from-amber-500 to-brand text-brand-foreground shadow-sm shadow-amber-900/10 hover:shadow-md hover:shadow-amber-900/20 hover:brightness-105 dark:shadow-black/30",
   secondary:
-    "border border-stone-300 bg-transparent text-stone-700 hover:bg-stone-100 dark:border-stone-700 dark:text-stone-300 dark:hover:bg-stone-800",
-  danger: "bg-rose-600 text-white hover:bg-rose-500 dark:bg-rose-600 dark:hover:bg-rose-500",
+    "border border-stone-300 bg-white text-stone-700 shadow-sm hover:border-stone-400 hover:bg-stone-50 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300 dark:hover:bg-stone-800",
+  danger:
+    "bg-gradient-to-b from-rose-500 to-rose-600 text-white shadow-sm shadow-rose-900/10 hover:shadow-md hover:shadow-rose-900/20 hover:brightness-105",
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -41,7 +43,7 @@ export function Button({
     <button
       disabled={disabled || pending}
       aria-busy={pending || undefined}
-      className={`inline-flex items-center justify-center gap-2 rounded px-4 py-1.5 text-sm font-medium transition-colors duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100 ${VARIANT_CLASSES[variant]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-lg px-4 py-1.5 text-sm font-medium transition-all duration-200 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:hover:brightness-100 disabled:active:scale-100 ${VARIANT_CLASSES[variant]} ${className}`}
       {...props}
     >
       {pending ? <Spinner /> : null}

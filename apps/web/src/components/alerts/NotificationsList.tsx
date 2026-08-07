@@ -3,7 +3,7 @@ import { MarkReadButton } from "./MarkReadButton";
 
 export function NotificationsList({ notifications }: { notifications: Notification[] }) {
   if (notifications.length === 0) {
-    return <p className="text-sm text-stone-500">No notifications.</p>;
+    return <p className="text-sm text-stone-500 dark:text-stone-400">No notifications.</p>;
   }
 
   return (

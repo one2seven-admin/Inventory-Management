@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import type { Item, ReorderSuggestion, Supplier } from "@platform/contracts";
 import { convertToPoAction, type ConvertToPoActionState } from "@/actions/reorderSuggestions/convertToPo";
 import { Button } from "@/components/ui/Button";
+import { formatCurrency } from "@/lib/format/formatCurrency";
 
 const initialState: ConvertToPoActionState = {};
 
@@ -25,15 +26,15 @@ export function ReorderSuggestionsTable({
   const suppliersById = new Map(suppliers.map((supplier) => [supplier.id, supplier]));
 
   if (suggestions.length === 0) {
-    return <p className="text-sm text-stone-500">No reorder suggestions right now — stock is above PAR.</p>;
+    return <p className="text-sm text-stone-500 dark:text-stone-400">No reorder suggestions right now — stock is above PAR.</p>;
   }
 
   return (
     <form action={formAction} className="flex flex-col gap-3">
       <input type="hidden" name="locationId" value={locationId} />
-      <div className="overflow-x-auto rounded-lg border border-stone-200 dark:border-stone-800">
+      <div className="overflow-x-auto rounded-xl border border-stone-200/70 bg-white shadow-sm dark:border-stone-800 dark:bg-stone-950">
         <table className="w-full text-sm">
-          <thead className="bg-stone-50 text-left text-xs uppercase text-stone-500 dark:bg-stone-900">
+          <thead className="bg-stone-50/80 text-left text-xs font-semibold tracking-wide uppercase text-stone-500 dark:bg-stone-900/60 dark:text-stone-400">
             <tr>
               {canConvert ? <th className="px-3 py-2"></th> : null}
               <th className="px-3 py-2">Item</th>
@@ -48,7 +49,7 @@ export function ReorderSuggestionsTable({
             {suggestions.map((suggestion) => (
               <tr
                 key={suggestion.itemId}
-                className="border-t border-stone-100 transition-colors hover:bg-stone-50 dark:border-stone-800 dark:hover:bg-stone-900/50"
+                className="border-t border-stone-100 transition-colors duration-150 hover:bg-amber-50/60 dark:border-stone-800 dark:hover:bg-stone-900/50"
               >
                 {canConvert ? (
                   <td className="px-3 py-2">
@@ -64,7 +65,7 @@ export function ReorderSuggestionsTable({
                     ? suppliersById.get(suggestion.preferredSupplierId)?.name ?? suggestion.preferredSupplierId
                     : "—"}
                 </td>
-                <td className="px-3 py-2">{suggestion.lastPrice != null ? `$${suggestion.lastPrice.toFixed(2)}` : "—"}</td>
+                <td className="px-3 py-2">{suggestion.lastPrice != null ? formatCurrency(suggestion.lastPrice) : "—"}</td>
               </tr>
             ))}
           </tbody>

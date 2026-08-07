@@ -40,7 +40,7 @@ export function PoFilters({
         ))}
       </Select>
       <noscript>
-        <button type="submit" className="rounded border px-2 py-1.5 text-sm">
+        <button type="submit" className="rounded-lg border border-stone-300 px-2 py-1.5 text-sm shadow-sm dark:border-stone-700">
           Filter
         </button>
       </noscript>

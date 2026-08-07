@@ -15,9 +15,9 @@ export function ManualStockIssueForm({ recipeId, locations }: { recipeId: string
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">Manual stock issue</p>
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Manual stock issue</p>
       <input type="hidden" name="recipeId" value={recipeId} />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Select name="locationId" required defaultValue="">
           <option value="" disabled>
             Location

@@ -16,7 +16,7 @@ export function ApproveRejectForm({ poId }: { poId: string }) {
 
   return (
     <Card>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">Approval required</p>
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Approval required</p>
       <form action={formAction} className="flex flex-wrap items-center gap-2">
         <input type="hidden" name="poId" value={poId} />
         <Input name="note" placeholder="Note (optional)" />

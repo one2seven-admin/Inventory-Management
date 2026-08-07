@@ -17,7 +17,7 @@ export function StockCountForm({ items, locationId }: { items: Item[]; locationI
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">Physical stock count (PRD §3.7)</p>
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Physical stock count (PRD §3.5)</p>
       <input type="hidden" name="locationId" value={locationId} />
       <div className="flex flex-col gap-2">
         {Array.from({ length: COUNT_ROWS }).map((_, index) => (

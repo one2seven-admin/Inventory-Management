@@ -15,9 +15,9 @@ export function ReceiveStockForm({ items, locationId }: { items: Item[]; locatio
 
   return (
     <Card as="form" action={formAction}>
-      <p className="mb-3 text-sm font-medium text-stone-900 dark:text-stone-50">Receive stock (PRD §3.4)</p>
+      <p className="mb-3 text-sm font-semibold text-stone-900 dark:text-stone-50">Receive stock (PRD §3.4)</p>
       <input type="hidden" name="locationId" value={locationId} />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
         <Select name="itemId" required defaultValue="" className="sm:col-span-2">
           <option value="" disabled>
             Item
