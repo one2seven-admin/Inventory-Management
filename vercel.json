@@ -24,17 +24,32 @@
         "identity-service": {
             "root": "services/identity-service",
             "entrypoint": "src/server.ts",
-            "buildCommand": "cd ../.. && npm run build:shared && cd services/identity-service && npx prisma generate && npm run build"
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/identity-service && npx prisma generate && npm run build",
+            "functions": {
+                "src/server.ts": {
+                    "includeFiles": "src/generated/prisma/**"
+                }
+            }
         },
         "inventory-service": {
             "root": "services/inventory-service",
             "entrypoint": "src/server.ts",
-            "buildCommand": "cd ../.. && npm run build:shared && cd services/inventory-service && npx prisma generate && npm run build"
+            "buildCommand": "cd ../.. && npm run build:shared && cd services/inventory-service && npx prisma generate && npm run build",
+            "functions": {
+                "src/server.ts": {
+                    "includeFiles": "src/generated/prisma/**"
+                }
+            }
         },
         "notifications-service": {
             "root": "services/notifications-service",
             "entrypoint": "src/server.ts",
             "buildCommand": "cd ../.. && npm run build:shared && cd services/notifications-service && npx prisma generate && npm run build",
+            "functions": {
+                "src/server.ts": {
+                    "includeFiles": "src/generated/prisma/**"
+                }
+            },
             "bindings": [
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" }
             ]
@@ -43,6 +58,11 @@
             "root": "services/purchasing-service",
             "entrypoint": "src/server.ts",
             "buildCommand": "cd ../.. && npm run build:shared && cd services/purchasing-service && npx prisma generate && npm run build",
+            "functions": {
+                "src/server.ts": {
+                    "includeFiles": "src/generated/prisma/**"
+                }
+            },
             "bindings": [
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" }
             ]
@@ -51,6 +71,11 @@
             "root": "services/recipes-service",
             "entrypoint": "src/server.ts",
             "buildCommand": "cd ../.. && npm run build:shared && cd services/recipes-service && npx prisma generate && npm run build",
+            "functions": {
+                "src/server.ts": {
+                    "includeFiles": "src/generated/prisma/**"
+                }
+            },
             "bindings": [
                 { "type": "service", "service": "inventory-service", "format": "url", "env": "INVENTORY_SERVICE_URL" }
             ]
