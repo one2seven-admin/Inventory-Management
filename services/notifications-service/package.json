@@ -12,10 +12,10 @@
     "db:push": "dotenv -e ../../.env -- prisma db push"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^0.10.4",
+    "@neondatabase/serverless": "^1.1.0",
     "@platform/contracts": "*",
-    "@prisma/adapter-neon": "^5.22.0",
-    "@prisma/client": "^5.20.0",
+    "@prisma/adapter-neon": "^6.19.3",
+    "@prisma/client": "^6.19.3",
     "dotenv": "^16.4.5",
     "fastify": "^4.28.1",
     "ws": "^8.21.3",
@@ -24,7 +24,7 @@
   "devDependencies": {
     "@types/node": "^20.14.0",
     "@types/ws": "^8.18.1",
-    "prisma": "^5.20.0",
+    "prisma": "^6.19.3",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3"
   }
